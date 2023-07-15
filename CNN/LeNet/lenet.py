@@ -7,6 +7,7 @@ import torch
 import torch.nn as nn
 
 from subsampling_layer import SubsamplingLayer
+from rbf_layer import RBFLayer
 
 
 class SparseConvLayer(nn.Module):
@@ -59,7 +60,7 @@ class LeNet5(nn.Module):
         self.s4 = SubsamplingLayer(16)
         self.c5 = nn.Conv2d(16, 120, (5, 5))
         self.f6 = nn.Linear(120, 84)
-        self.out = nn.Linear(84, 10)
+        self.out = RBFLayer(84, 10)
 
     def forward(self, x):
         x = self.activation(self.c1(x))

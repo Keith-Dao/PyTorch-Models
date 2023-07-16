@@ -28,7 +28,6 @@ class RBFLayer(nn.Module):
             return image.flatten()
         self.kernels = torch.Tensor(
             np.array([load_kernel(i) for i in range(10)]))
-        print(self.kernels.shape)
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         shape = x.size(0), self.out_channels, self.in_channels

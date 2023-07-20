@@ -62,7 +62,7 @@ class LeNet5(nn.Module):
         self.f6 = nn.Linear(120, 84)
         self.out = RBFLayer(84, 10)
 
-    def forward(self, x):
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
         x = self.activation(self.c1(x))
         x = self.activation(self.s2(x))
         x = self.activation(self.c3(x))
@@ -71,3 +71,10 @@ class LeNet5(nn.Module):
         x = torch.flatten(x, start_dim=1)
         x = self.f6(x)
         return self.out(x)
+
+    @staticmethod
+    def loss(outputs: torch.Tensor, targets: torch.Tensor) -> torch.Tensor:
+        return (
+            outputs[targets == 1].pow(2).sum()
+            + torch.log(math.exp(-0.1) + (-outputs[targets == 0]).exp().sum())
+        )

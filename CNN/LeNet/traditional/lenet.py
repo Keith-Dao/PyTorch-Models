@@ -6,8 +6,8 @@ import math
 import torch
 import torch.nn as nn
 
-from subsampling_layer import SubsamplingLayer
-from rbf_layer import RBFLayer
+from .subsampling_layer import SubsamplingLayer
+from .rbf_layer import RBFLayer
 
 
 class SparseConvLayer(nn.Module):
@@ -15,8 +15,9 @@ class SparseConvLayer(nn.Module):
         super().__init__()
         self.kernel_size = 5
         self.out_channels = 16
-        self.weights = nn.Parameter(torch.Tensor(
-            10, 6, self.kernel_size, self.kernel_size))
+        self.weights = nn.Parameter(
+            torch.Tensor(10, 6, self.kernel_size, self.kernel_size)
+        )
         self.bias = nn.Parameter(torch.Tensor(1, self.out_channels, 1, 1))
         self.mapping = [
             [0, 4, 5, 6, 9, 10, 11, 12, 14, 15],
@@ -24,7 +25,7 @@ class SparseConvLayer(nn.Module):
             [0, 1, 2, 6, 7, 8, 11, 13, 14, 15],
             [1, 2, 3, 6, 7, 8, 9, 12, 14, 15],
             [2, 3, 4, 7, 8, 9, 10, 12, 13, 15],
-            [3, 4, 5, 8, 9, 10, 11, 13, 14, 15]
+            [3, 4, 5, 8, 9, 10, 11, 13, 14, 15],
         ]
 
         # Init params
@@ -37,14 +38,14 @@ class SparseConvLayer(nn.Module):
             x.size(0),
             self.out_channels,
             x.size(2) - self.kernel_size + 1,
-            x.size(3) - self.kernel_size + 1
+            x.size(3) - self.kernel_size + 1,
         )
 
         for in_channel, out_channels in enumerate(self.mapping):
             output[:, out_channels, :, :] += (
                 nn.functional.conv2d(
                     x[:, in_channel, :, :].unsqueeze(1),
-                    self.weights[:, in_channel, :, :].unsqueeze(1)
+                    self.weights[:, in_channel, :, :].unsqueeze(1),
                 )
             ) + self.bias[:, out_channels, :, :]
         return output
@@ -74,7 +75,6 @@ class LeNet5(nn.Module):
 
     @staticmethod
     def loss(outputs: torch.Tensor, targets: torch.Tensor) -> torch.Tensor:
-        return (
-            outputs[targets == 1].pow(2).sum()
-            + torch.log(math.exp(-0.1) + (-outputs[targets == 0]).exp().sum())
+        return outputs[targets == 1].pow(2).sum() + torch.log(
+            math.exp(-0.1) + (-outputs[targets == 0]).exp().sum()
         )

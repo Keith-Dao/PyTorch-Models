@@ -28,7 +28,6 @@ class ManualLRScheduler:
         Step the scheduler to get the multiplicative factor for the learning
         rate.
         """
-        print("Running manual", self._count)
         if self._i < len(self.counts) and self._count == self.counts[self._i]:
             self._count = 0
             self._i += 1

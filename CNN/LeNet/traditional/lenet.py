@@ -75,7 +75,7 @@ class LeNet5(nn.Module):
         return self.out(x)
 
     @staticmethod
-    def loss(outputs: torch.Tensor, targets: torch.Tensor) -> torch.Tensor:
-        return outputs[targets == 1].pow(2).sum() + torch.log(
-            math.exp(-0.1) + (-outputs[targets == 0]).exp().sum()
+    def loss(logits: torch.Tensor, targets: torch.Tensor) -> torch.Tensor:
+        return logits[targets == 1].pow(2).sum() + torch.log(
+            math.exp(-0.1) + (-logits[targets == 0]).exp().sum()
         )

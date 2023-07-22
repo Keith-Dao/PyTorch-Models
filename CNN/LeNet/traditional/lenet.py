@@ -39,6 +39,7 @@ class SparseConvLayer(nn.Module):
             self.out_channels,
             x.size(2) - self.kernel_size + 1,
             x.size(3) - self.kernel_size + 1,
+            device=self.weights.device,
         )
 
         for in_channel, out_channels in enumerate(self.mapping):

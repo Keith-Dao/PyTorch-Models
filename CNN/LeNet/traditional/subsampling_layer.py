@@ -15,18 +15,18 @@ class SubsamplingLayer(nn.Module):
     def __init__(self, in_channels: int) -> None:
         super().__init__()
         self.in_channels: int = in_channels
-        weights = torch.Tensor(in_channels)
-        self.weights = nn.Parameter(weights)
-        bias = torch.Tensor(in_channels)
-        self.bias = nn.Parameter(bias)
+        self.weight = nn.Parameter(torch.Tensor(in_channels))
+        self.bias = nn.Parameter(torch.Tensor(in_channels))
 
         # Init params
         bound = 1 / math.sqrt(self.in_channels)
-        nn.init.uniform_(self.weights, -bound, bound)
+        nn.init.uniform_(self.weight, -bound, bound)
         nn.init.uniform_(self.bias, -bound, bound)
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         pool = nn.functional.avg_pool2d(
-            x, 2, stride=2, divisor_override=1).permute((0, 2, 3, 1))
-        return nn.functional.softmax(pool * self.weights + self.bias, dim=2)\
-            .permute((0, 3, 1, 2))
+            x, 2, stride=2, divisor_override=1
+        ).permute((0, 2, 3, 1))
+        return nn.functional.softmax(
+            pool * self.weight + self.bias, dim=2
+        ).permute((0, 3, 1, 2))

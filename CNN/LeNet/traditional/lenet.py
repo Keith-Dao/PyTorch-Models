@@ -15,7 +15,7 @@ class SparseConvLayer(nn.Module):
         super().__init__()
         self.kernel_size = 5
         self.out_channels = 16
-        self.weights = nn.Parameter(
+        self.weight = nn.Parameter(
             torch.Tensor(10, 6, self.kernel_size, self.kernel_size)
         )
         self.bias = nn.Parameter(torch.Tensor(1, self.out_channels, 1, 1))
@@ -30,7 +30,7 @@ class SparseConvLayer(nn.Module):
 
         # Init params
         bound = 1 / math.sqrt(6)
-        nn.init.uniform_(self.weights, -bound, bound)
+        nn.init.uniform_(self.weight, -bound, bound)
         nn.init.uniform_(self.bias, -bound, bound)
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
@@ -39,14 +39,14 @@ class SparseConvLayer(nn.Module):
             self.out_channels,
             x.size(2) - self.kernel_size + 1,
             x.size(3) - self.kernel_size + 1,
-            device=self.weights.device,
+            device=self.weight.device,
         )
 
         for in_channel, out_channels in enumerate(self.mapping):
             output[:, out_channels, :, :] += (
                 nn.functional.conv2d(
                     x[:, in_channel, :, :].unsqueeze(1),
-                    self.weights[:, in_channel, :, :].unsqueeze(1),
+                    self.weight[:, in_channel, :, :].unsqueeze(1),
                 )
             ) + self.bias[:, out_channels, :, :]
         return output

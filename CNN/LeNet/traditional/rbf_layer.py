@@ -23,18 +23,18 @@ class RBFLayer(nn.Module):
                     )
                 ).convert("L")
             )
-            image = image / 127.5 - 1  # Normalise from [0, 255] to [-1, 1]
-            return image.flatten()
+            return ((image < 127.5) * 2 - 1).flatten()
 
         kernels = torch.Tensor(np.array([load_kernel(i) for i in range(10)]))
         self.register_buffer("kernels", kernels, persistent=False)
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         shape = x.size(0), self.out_channels, self.in_channels
-        x = x.unsqueeze(1).expand(shape)
-        kernel = self.kernels.unsqueeze(
-            0
-        ).expand(  # pyright: ignore [reportGeneralTypeIssues]
-            shape
+        kernels: torch.Tensor = (
+            self.kernels
+        )  # pyright: ignore [reportGeneralTypeIssues]
+        return (
+            (x.unsqueeze(1).expand(shape) - kernels.unsqueeze(0).expand(shape))
+            .pow(2)
+            .sum(-1)
         )
-        return (x - kernel).pow(2).sum(-1)

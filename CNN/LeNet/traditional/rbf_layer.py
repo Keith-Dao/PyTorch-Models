@@ -23,7 +23,7 @@ class RBFLayer(nn.Module):
                     )
                 ).convert("L")
             )
-            image = (image - 127) / 255.0
+            image = image / 127.5 - 1  # Normalise from [0, 255] to [-1, 1]
             return image.flatten()
 
         kernels = torch.Tensor(np.array([load_kernel(i) for i in range(10)]))

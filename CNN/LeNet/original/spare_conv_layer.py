@@ -1,8 +1,6 @@
 """
     Sparse convolutional layer.
 """
-import math
-
 import torch
 from torch import nn
 
@@ -30,7 +28,8 @@ class SparseConvLayer(nn.Module):
         ]
 
         # Init params
-        bound = 1 / math.sqrt(6)
+        in_channels = 10
+        bound = 2.4 / in_channels
         nn.init.uniform_(self.weight, -bound, bound)
         nn.init.uniform_(self.bias, -bound, bound)
 

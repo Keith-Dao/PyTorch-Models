@@ -1,8 +1,6 @@
 """
     The subsampling layer used in LeNet-5.
 """
-import math
-
 import torch
 from torch import nn
 
@@ -19,7 +17,7 @@ class SubsamplingLayer(nn.Module):
         self.bias = nn.Parameter(torch.Tensor(in_channels))
 
         # Init params
-        bound = 1 / math.sqrt(self.in_channels)
+        bound = 2.4 / self.in_channels
         nn.init.uniform_(self.weight, -bound, bound)
         nn.init.uniform_(self.bias, -bound, bound)
 

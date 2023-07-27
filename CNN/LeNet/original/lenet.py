@@ -28,6 +28,13 @@ class LeNet5(nn.Module):
         self.f6 = nn.Linear(120, 84)
         self.out = RBFLayer(84, 10)
 
+        # Init weights for the conv layers
+        conv_layers = [self.c1, self.c5]
+        for layer in conv_layers:
+            bound = 2.4 / layer.in_channels
+            nn.init.uniform_(layer.weight, -bound, bound)
+            nn.init.uniform_(layer.bias, -bound, bound)
+
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         """
         Forward pass.

@@ -7,7 +7,7 @@ import torch
 from torch import nn
 
 from .rbf_layer import RBFLayer
-from .rescaled_tanh import RescaledTanh
+from .rescaled_tanh_layer import RescaledTanh
 from .spare_conv_layer import SparseConvLayer
 from .subsampling_layer import SubsamplingLayer
 

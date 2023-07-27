@@ -8,6 +8,7 @@ import torch.nn as nn
 
 from .subsampling_layer import SubsamplingLayer
 from .rbf_layer import RBFLayer
+from .rescaled_tanh import RescaledTanh
 
 
 class SparseConvLayer(nn.Module):
@@ -55,7 +56,7 @@ class SparseConvLayer(nn.Module):
 class LeNet5(nn.Module):
     def __init__(self) -> None:
         super().__init__()
-        self.activation = nn.Tanh()
+        self.activation = RescaledTanh(1.7159, 2 / 3)
         self.c1 = nn.Conv2d(1, 6, (5, 5))
         self.s2 = SubsamplingLayer(6)
         self.c3 = SparseConvLayer()

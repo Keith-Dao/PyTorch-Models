@@ -4,7 +4,7 @@
 import math
 
 import torch
-import torch.nn as nn
+from torch import nn
 
 from .subsampling_layer import SubsamplingLayer
 from .rbf_layer import RBFLayer
@@ -12,6 +12,10 @@ from .rescaled_tanh import RescaledTanh
 
 
 class SparseConvLayer(nn.Module):
+    """
+    The sparse convolutional layer (C3) described in the LeNet paper.
+    """
+
     def __init__(self) -> None:
         super().__init__()
         self.kernel_size = 5
@@ -35,6 +39,9 @@ class SparseConvLayer(nn.Module):
         nn.init.uniform_(self.bias, -bound, bound)
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
+        """
+        Forward pass.
+        """
         output = torch.zeros(
             x.size(0),
             self.out_channels,
@@ -54,6 +61,10 @@ class SparseConvLayer(nn.Module):
 
 
 class LeNet5(nn.Module):
+    """
+    Original LeNet-5 model.
+    """
+
     def __init__(self) -> None:
         super().__init__()
         self.activation = RescaledTanh(1.7159, 2 / 3)
@@ -66,6 +77,9 @@ class LeNet5(nn.Module):
         self.out = RBFLayer(84, 10)
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
+        """
+        Forward pass.
+        """
         x = self.activation(self.c1(x))
         x = self.activation(self.s2(x))
         x = self.activation(self.c3(x))
@@ -77,6 +91,9 @@ class LeNet5(nn.Module):
 
     @staticmethod
     def loss(logits: torch.Tensor, targets: torch.Tensor) -> torch.Tensor:
+        """
+        The model's loss function.
+        """
         return logits[targets == 1].pow(2).sum() + torch.log(
             math.exp(-0.1) + (-logits[targets == 0]).exp().sum()
         )

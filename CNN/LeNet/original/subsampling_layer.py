@@ -4,7 +4,7 @@
 import math
 
 import torch
-import torch.nn as nn
+from torch import nn
 
 
 class SubsamplingLayer(nn.Module):
@@ -24,6 +24,9 @@ class SubsamplingLayer(nn.Module):
         nn.init.uniform_(self.bias, -bound, bound)
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
+        """
+        Forward pass.
+        """
         pool = nn.functional.avg_pool2d(
             x, 2, stride=2, divisor_override=1
         ).permute((0, 2, 3, 1))

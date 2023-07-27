@@ -4,6 +4,11 @@
 
 
 class ManualLRScheduler:
+    """
+    Scheduler to used along with the torch.optim.lr_scheduler.LambdaLR to
+    change the learning rate to exact values after a certain number of epochs.
+    """
+
     learning_rates: list[float]
     counts: list[int]
     _i: int

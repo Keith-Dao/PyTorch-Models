@@ -15,7 +15,5 @@ class RescaledTanh(nn.Tanh):
         self.A = A
         self.S = S
 
-    def forward(
-        self, input: torch.Tensor  # pylint: disable=W0622
-    ) -> torch.Tensor:
+    def forward(self, input: torch.Tensor) -> torch.Tensor:
         return self.A * super().forward(self.S * input)

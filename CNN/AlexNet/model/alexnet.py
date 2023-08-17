@@ -29,6 +29,7 @@ class AlexNet(nn.Module):
             nn.ReLU(),
             nn.MaxPool2d((3, 3), (2, 2)),  # (256, 6, 6)
             nn.Flatten(),
+            nn.Dropout(),
             nn.Linear(9216, 4096),
             nn.ReLU(),
             nn.Dropout(),

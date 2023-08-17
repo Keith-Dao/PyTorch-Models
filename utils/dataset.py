@@ -5,6 +5,17 @@
 import torch
 
 
+def get_loader(
+    dataset: torch.utils.data.Dataset, batch_size: int
+) -> torch.utils.data.DataLoader:
+    """
+    Create a data loader for the given dataset.
+    """
+    return torch.utils.data.DataLoader(
+        dataset, batch_size=batch_size, shuffle=True
+    )
+
+
 def sample_first(
     loader: torch.utils.data.DataLoader, classes: list[str]
 ) -> tuple[torch.Tensor, str]:

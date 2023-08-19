@@ -106,6 +106,12 @@ The model appears to fit well and does not appear to have a minimal generalisati
 
 ### Results
 
+Training over 75 epochs at a learning rate of 1e-4 and a 0.1 weight decay. Additionally, the training images were augmented with random crop of between 0.8 and 1 of the image and resize to 227x227, 50% probability of horizontal flip and gaussian noise with mean 0 and standard deviation of 0.01.
+
+|                         Loss                         |                           Accuracy                           |
+| :--------------------------------------------------: | :----------------------------------------------------------: |
+| ![CIFAR 100 loss graph](Resources/cifar100_loss.png) | ![CIFAR 100 accuracy graph](Resources/cifar100_accuracy.png) |
+
 |              | Training | Validation | Testing |
 | :----------: | :------: | :--------: | :-----: |
 |     Loss     |  2.0776  |   2.497    | 2.0507  |
@@ -213,6 +219,10 @@ The model appears to fit well and does not appear to have a minimal generalisati
 |     wolf      |       0.3614       |        0.2867        |      0.6053       |     0.4043      |      0.3333       |     0.4600     |      0.3817       |       0.3082        |      0.5227      |
 |     woman     |       0.3399       |        0.2523        |      0.2742       |     0.3488      |      0.1795       |     0.1700     |      0.3443       |       0.2097        |      0.2099      |
 |     worm      |       0.4089       |        0.3985        |      0.5000       |     0.4663      |      0.3681       |     0.4900     |      0.4357       |       0.3827        |      0.4949      |
+
+Surprising the model is more accurate on predicting the testing set as opposed to the training set. The model is not on the same level as human recognition being at worst ~37% accurate on the validation set and at best ~47% accurate on the test set and having precision, recall and f1 scores ranging from as low as 0.1 to as high as 0.7. These low results could be explained by the lack of detail that the images possess when originally being 32x32.
+
+The model was originally trained without any mitigations for over fitting, which allowed for signs of over fitting early during training. Although various techniques were used to minimise over fitting, it is quite evident from the loss graph that model has signs of over fitting, which would worsen with further training and the validation loss appears to be stagnating and the generalisation gap is being to grow larger. To improve the model, more images would need to be added to the training set.
 
 ## References
 

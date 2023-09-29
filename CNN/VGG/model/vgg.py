@@ -45,10 +45,13 @@ class VGG(nn.Module):
             nn.ReLU(True),
             nn.MaxPool2d(2, 2),  # (512, 7, 7)
             nn.Flatten(),
+            nn.Dropout(),
             nn.Linear(25088, 4096),
             nn.ReLU(True),
+            nn.Dropout(),
             nn.Linear(4096, 4096),
             nn.ReLU(True),
+            nn.Dropout(),
             nn.Linear(4096, num_classes),
         )
 

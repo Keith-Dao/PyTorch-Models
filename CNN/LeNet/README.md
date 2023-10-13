@@ -92,4 +92,4 @@ The loss values cannot be compared between the two models, due to the use of dif
 
 ## References
 
-Research Paper: http://vision.stanford.edu/cs598_spring07/papers/Lecun98.pdf
+Research paper: http://vision.stanford.edu/cs598_spring07/papers/Lecun98.pdf

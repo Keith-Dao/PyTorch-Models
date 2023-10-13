@@ -8,19 +8,19 @@ This is an implementation of AlexNet model described in the research paper.
 
 |    Layer (type)     |   Output Shape    |  Param #   |
 | :-----------------: | :---------------: | :--------: |
-|   2D Convolution    | [-1, 96, 55, 55]  |   34,944   |
+|   2D convolution    | [-1, 96, 55, 55]  |   34,944   |
 |        ReLU         | [-1, 96, 55, 55]  |     0      |
 | Local response norm | [-1, 96, 55, 55]  |     0      |
 |   2D max pooling    | [-1, 96, 27, 27]  |     0      |
-|   2D Convolution    | [-1, 256, 27, 27] |  614,656   |
+|   2D convolution    | [-1, 256, 27, 27] |  614,656   |
 |        ReLU         | [-1, 256, 27, 27] |     0      |
 | Local response norm | [-1, 256, 27, 27] |     0      |
 |   2D max pooling    | [-1, 256, 13, 13] |     0      |
-|   2D Convolution    | [-1, 384, 13, 13] |  885,120   |
+|   2D convolution    | [-1, 384, 13, 13] |  885,120   |
 |        ReLU         | [-1, 384, 13, 13] |     0      |
-|   2D Convolution    | [-1, 384, 13, 13] | 1,327,488  |
+|   2D convolution    | [-1, 384, 13, 13] | 1,327,488  |
 |        ReLU         | [-1, 384, 13, 13] |     0      |
-|   2D Convolution    | [-1, 256, 13, 13] |  884,992   |
+|   2D convolution    | [-1, 256, 13, 13] |  884,992   |
 |        ReLU         | [-1, 256, 13, 13] |     0      |
 |   2D max pooling    |  [-1, 256, 6, 6]  |     0      |
 |       Flatten       |    [-1, 9216]     |     0      |
@@ -65,7 +65,7 @@ Training over 9 epochs at a learning rate of 1e-4.
 |   8   |       0.9900       |        0.9931        |      0.9938       |     0.9895      |      0.9853       |     0.9836     |      0.9897       |       0.9892        |      0.9886      |
 |   9   |       0.9877       |        0.9822        |      0.9833       |     0.9891      |      0.9890       |     0.9931     |      0.9884       |       0.9856        |      0.9882      |
 
-The model appears to fit well and does not appear to have a minimal generalisation gap. Overall, the model performs well with accuracy being greater than 99% across all datasets and the precision, recall and f1 score not being lower than 0.98 at the worst.
+The model appears to fit well and does appear to have a minimal generalisation gap. Overall, the model performs well with accuracy being greater than 99% across all datasets and the precision, recall and f1 score not being lower than 0.98 at the worst.
 
 ## CIFAR 100
 
@@ -73,19 +73,19 @@ The model appears to fit well and does not appear to have a minimal generalisati
 
 |    Layer (type)     |   Output Shape    |  Param #   |
 | :-----------------: | :---------------: | :--------: |
-|   2D Convolution    | [-1, 96, 55, 55]  |   34,944   |
+|   2D convolution    | [-1, 96, 55, 55]  |   34,944   |
 |        ReLU         | [-1, 96, 55, 55]  |     0      |
 | Local response norm | [-1, 96, 55, 55]  |     0      |
 |   2D max pooling    | [-1, 96, 27, 27]  |     0      |
-|   2D Convolution    | [-1, 256, 27, 27] |  614,656   |
+|   2D convolution    | [-1, 256, 27, 27] |  614,656   |
 |        ReLU         | [-1, 256, 27, 27] |     0      |
 | Local response norm | [-1, 256, 27, 27] |     0      |
 |   2D max pooling    | [-1, 256, 13, 13] |     0      |
-|   2D Convolution    | [-1, 384, 13, 13] |  885,120   |
+|   2D convolution    | [-1, 384, 13, 13] |  885,120   |
 |        ReLU         | [-1, 384, 13, 13] |     0      |
-|   2D Convolution    | [-1, 384, 13, 13] | 1,327,488  |
+|   2D convolution    | [-1, 384, 13, 13] | 1,327,488  |
 |        ReLU         | [-1, 384, 13, 13] |     0      |
-|   2D Convolution    | [-1, 256, 13, 13] |  884,992   |
+|   2D convolution    | [-1, 256, 13, 13] |  884,992   |
 |        ReLU         | [-1, 256, 13, 13] |     0      |
 |   2D max pooling    |  [-1, 256, 6, 6]  |     0      |
 |       Flatten       |    [-1, 9216]     |     0      |
@@ -226,4 +226,4 @@ The model was originally trained without any mitigations for over fitting, which
 
 ## References
 
-Research paper : https://papers.nips.cc/paper_files/paper/2012/file/c399862d3b9d6b76c8436e924a68c45b-Paper.pdf
+Research paper: https://papers.nips.cc/paper_files/paper/2012/file/c399862d3b9d6b76c8436e924a68c45b-Paper.pdf

@@ -59,6 +59,8 @@ Implementation of VGG-16 described in the research paper.
 
 Training over 10 epochs with a learning rate of 1e-4 and weight decay of 1e-12.
 
+Given the size of the model, a batch size of 32 was used.
+
 |                     Loss                      |                       Accuracy                        |
 | :-------------------------------------------: | :---------------------------------------------------: |
 | ![MNIST loss graph](Resources/mnist_loss.png) | ![MNIST accuracy graph](Resources/mnist_accuracy.png) |
@@ -80,6 +82,8 @@ Training over 10 epochs with a learning rate of 1e-4 and weight decay of 1e-12.
 |   7   |       0.9927       |        0.9956        |      0.9961       |     0.9939      |      0.9801       |     0.9835     |      0.9933       |       0.9878        |      0.9897      |
 |   8   |       0.9949       |        0.9920        |      0.9959       |     0.9937      |      0.9908       |     0.9877     |      0.9943       |       0.9914        |      0.9918      |
 |   9   |       0.9913       |        0.9768        |      0.9862       |     0.9913      |      0.9923       |     0.9911     |      0.9913       |       0.9845        |      0.9886      |
+
+Despite having more than double the parameters, VGG does not perform significantly better AlexNet on MNIST.
 
 ## CIFAR-100
 
@@ -137,6 +141,8 @@ Training over 10 epochs with a learning rate of 1e-4 and weight decay of 1e-12.
 ### Results
 
 Training over 100 epochs at a learning rate of 1e-4 and a 1e-6 weight decay. Additionally, the training images were augmented with random crop of between 0.8 and 1 of the image and resize to 224x224, 50% probability of horizontal flip and gaussian noise with mean 0 and standard deviation of 0.01.
+
+Given the size of the model, a batch of size of 32 was used.
 
 |                         Loss                         |                           Accuracy                           |
 | :--------------------------------------------------: | :----------------------------------------------------------: |
@@ -249,6 +255,10 @@ Training over 100 epochs at a learning rate of 1e-4 and a 1e-6 weight decay. Add
 |     wolf      |       0.5645       |        0.3882        |      0.6404       |     0.6087      |      0.3806       |     0.5700     |      0.5858       |       0.3844        |      0.6032      |
 |     woman     |       0.4761       |        0.2988        |      0.3063       |     0.4721      |      0.3451       |     0.3400     |      0.4741       |       0.3203        |      0.3223      |
 |     worm      |       0.6717       |        0.4672        |      0.6875       |     0.6371      |      0.4267       |     0.5500     |      0.6540       |       0.4460        |      0.6111      |
+
+Similar to AlexNet, VGG performs better on the test set as opposed to the validation set. Unlike the results when training on the MNIST dataset, VGG performs significantly better than AlexNet across all datasets.
+
+As seen in the loss graph, the generalisation gap is continuing to widen. Further training may exacerbate the gap, causing the test performance to degrade. However, due to the weight decay being used during training, the model may not learn any more with further epochs.
 
 ## References
 

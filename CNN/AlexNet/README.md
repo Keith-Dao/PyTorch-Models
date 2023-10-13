@@ -65,7 +65,7 @@ Training over 9 epochs at a learning rate of 1e-4.
 |   8   |       0.9900       |        0.9931        |      0.9938       |     0.9895      |      0.9853       |     0.9836     |      0.9897       |       0.9892        |      0.9886      |
 |   9   |       0.9877       |        0.9822        |      0.9833       |     0.9891      |      0.9890       |     0.9931     |      0.9884       |       0.9856        |      0.9882      |
 
-The model appears to fit well and does not appear to have a minimal generalisation gap. Overall, the model performs well with accuracy being greater than 99% across all datasets and the precision, recall and f1 score not being lower than 0.98 at the worst.
+The model appears to fit well and does appear to have a minimal generalisation gap. Overall, the model performs well with accuracy being greater than 99% across all datasets and the precision, recall and f1 score not being lower than 0.98 at the worst.
 
 ## CIFAR 100
 

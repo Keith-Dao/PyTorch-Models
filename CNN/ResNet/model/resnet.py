@@ -14,7 +14,7 @@ class BottleneckResidualBlock(nn.Module):
         self, in_channels: int, out_channels: int, downsample: bool = False
     ) -> None:
         super().__init__()
-        self.relu = torch.nn.ReLU(True)
+        self.relu = nn.ReLU(True)
 
         self.residual_connection = (
             nn.Identity()

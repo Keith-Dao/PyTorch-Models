@@ -69,3 +69,27 @@ def pretty_print_metrics(
             ),
             end="\n\n",
         )
+
+
+def histories_to_md(
+    classes: list[str],
+    histories: dict[str, list[torch.tensor]],
+    metrics: list[str],
+):
+    """
+    Convert the metric histories into a markdown table.
+    """
+    table = list(
+        zip(
+            classes,
+            *[
+                [f"{x:.4f}" for x in history[metric][-1]]
+                for metric in metrics
+                for history in histories
+            ],
+        )
+    )
+    delimiter = "|"
+    return "\n".join(
+        f"{delimiter}{delimiter.join(row)}{delimiter}" for row in table
+    )

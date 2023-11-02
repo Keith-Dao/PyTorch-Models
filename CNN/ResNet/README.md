@@ -582,6 +582,8 @@ Training over 75 epochs with a learning rate of 1e-4 and batch size of 64.
 |     woman     |       0.7479       |        0.4790        |      0.5385       |     0.7335      |      0.4191       |     0.4900     |      0.7406       |       0.4471        |      0.5131      |
 |     worm      |       0.7725       |        0.5369        |      0.6036       |     0.7956      |      0.6015       |     0.6700     |      0.7839       |       0.5674        |      0.6351      |
 
+The ResNet model performs significantly better than VGG across all datasets, despite the lower parameter counts. Similar to the previous models, ResNet performs better on the test set as opposed to the validation set. Furthermore, the loss graph indicates that the model has begun overfitting and measures such as weight decay may be required to reduce the generalisation gap and potentially increase performance across the validation and test sets.
+
 ## References
 
 Research paper: https://arxiv.org/pdf/1512.03385.pdf

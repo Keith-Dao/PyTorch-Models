@@ -61,6 +61,7 @@ def validate_one_epoch(
     """
     One validation epoch.
     """
+    model.eval()
     validation_loss = torch.tensor([0], dtype=torch.float, device=device)
     for data, targets in tqdm.tqdm(loader, desc=tqdm_description, ncols=100):
         data = data.to(device)
@@ -75,6 +76,7 @@ def validate_one_epoch(
         validation_loss += loss
         if metrics:
             metrics.update(y_pred, targets)
+    model.train()
     return validation_loss.to("cpu") / len(loader.dataset)
 
 

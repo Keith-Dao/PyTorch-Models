@@ -1,6 +1,8 @@
 """
     Metric utils.
 """
+from typing import Any
+
 import matplotlib.pyplot as plt
 import torch
 from matplotlib.ticker import MaxNLocator
@@ -30,13 +32,14 @@ def plot_metric(histories: dict[str, dict[str, list[float]]], metric: str):
 
 
 def pretty_print_metrics(
-    metrics: dict[str, list[torch.tensor]], classes: list[str]
+    metrics: dict[str, list[torch.Tensor]], classes: list[str]
 ):
     """
     Print the metrics in a tabulated format.
     """
     single_value_headers, single_value_data = [], []
-    multivalue_headers, multivalue_data = ["Class"], [classes]
+    multivalue_headers = ["Class"]
+    multivalue_data: list[Any] = [classes]
 
     for metric, history in metrics.items():
         if history[-1].numel() == 1:
@@ -73,7 +76,7 @@ def pretty_print_metrics(
 
 def histories_to_md(
     classes: list[str],
-    histories: dict[str, list[torch.tensor]],
+    histories: list[dict[str, list[torch.Tensor]]],
     metrics: list[str],
 ):
     """

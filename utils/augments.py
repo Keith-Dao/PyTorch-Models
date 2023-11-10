@@ -13,7 +13,7 @@ class AddGaussianNoise:
         self.mean = mean
         self.std = std
 
-    def __call__(self, input_: torch.tensor) -> torch.tensor:
+    def __call__(self, input_: torch.Tensor) -> torch.Tensor:
         return input_ + torch.randn(input_.size()) * self.std + self.mean
 
     def __repr__(self) -> str:
@@ -33,7 +33,7 @@ class Clip:
         self.min = min_
         self.max = max_
 
-    def __call__(self, input_: torch.tensor) -> torch.tensor:
+    def __call__(self, input_: torch.Tensor) -> torch.Tensor:
         return torch.clamp(input_, self.min, self.max)
 
     def __repr__(self) -> str:

@@ -15,12 +15,12 @@ def train_one_epoch(
     optimizer: torch.optim.Optimizer,
     scheduler: torch.optim.lr_scheduler.LRScheduler | None,
     loader: torch.utils.data.DataLoader,
-    loss_fn: Callable[[torch.tensor, torch.tensor], torch.tensor],
+    loss_fn: Callable[[torch.Tensor, torch.Tensor], torch.Tensor],
     num_classes: int,
     metrics: torchmetrics.MetricCollection | None = None,
     device: torch.device = torch.device("cpu"),
     tqdm_description: str = "",
-) -> torch.tensor:
+) -> torch.Tensor:
     """
     One training epoch.
     """
@@ -52,12 +52,12 @@ def train_one_epoch(
 def validate_one_epoch(
     model: torch.nn.Module,
     loader: torch.utils.data.DataLoader,
-    loss_fn: Callable[[torch.tensor, torch.tensor], torch.tensor],
+    loss_fn: Callable[[torch.Tensor, torch.Tensor], torch.Tensor],
     num_classes: int,
     metrics: torchmetrics.MetricCollection | None = None,
     device: torch.device = torch.device("cpu"),
     tqdm_description: str = "",
-) -> torch.tensor:
+) -> torch.Tensor:
     """
     One validation epoch.
     """
@@ -85,11 +85,11 @@ def train(
     optimizer: torch.optim.Optimizer,
     scheduler: torch.optim.lr_scheduler.LRScheduler | None,
     train_loader: torch.utils.data.DataLoader,
-    train_history: dict[str, list[float]],
+    train_history: dict[str, list[torch.Tensor]],
     validation_loader: torch.utils.data.DataLoader,
-    validation_history: dict[str, list[float]],
+    validation_history: dict[str, list[torch.Tensor]],
     epochs: int,
-    loss_fn: Callable[[torch.tensor, torch.tensor], torch.tensor],
+    loss_fn: Callable[[torch.Tensor, torch.Tensor], torch.Tensor],
     classes: list[str],
     train_metrics: torchmetrics.MetricCollection | None = None,
     validation_metrics: torchmetrics.MetricCollection | None = None,

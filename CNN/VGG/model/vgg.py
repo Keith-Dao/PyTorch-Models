@@ -2,7 +2,7 @@
     VGG-16 Model
 """
 import torch
-import torch.nn as nn
+from torch import nn
 
 
 class VGG(nn.Module):
@@ -55,7 +55,7 @@ class VGG(nn.Module):
             nn.Linear(4096, num_classes),
         )
 
-    def forward(self, x: torch.tensor) -> torch.tensor:
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
         """
         Forward pass.
         """

@@ -58,7 +58,7 @@ class GoogLeNet(nn.Module):
     Expects input of shape (3, 224, 224).
     """
 
-    def __init__(self, num_classes: int = 100) -> None:
+    def __init__(self, num_classes: int = 1000) -> None:
         super().__init__()
 
         self.input = nn.Sequential(  # (3, 224, 224)

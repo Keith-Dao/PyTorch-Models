@@ -20,6 +20,7 @@ def train_one_epoch(
     metrics: torchmetrics.MetricCollection | None = None,
     device: torch.device = torch.device("cpu"),
     tqdm_description: str = "",
+    auxiliary_loss_weight: float = 0.3,
 ) -> torch.Tensor:
     """
     One training epoch.
@@ -33,7 +34,13 @@ def train_one_epoch(
         # Forward pass
         optimizer.zero_grad()
         y_pred = model(data)
-        loss = loss_fn(y_pred, y)
+        if isinstance(y_pred, tuple):
+            y_pred, *aux_preds = y_pred
+            loss = loss_fn(y_pred, y) + auxiliary_loss_weight * sum(
+                loss_fn(aux_pred, y) for aux_pred in aux_preds
+            )
+        else:
+            loss = loss_fn(y_pred, y)
 
         # Backward pass
         loss.backward()
@@ -94,6 +101,7 @@ def train(
     train_metrics: torchmetrics.MetricCollection | None = None,
     validation_metrics: torchmetrics.MetricCollection | None = None,
     device: torch.device = torch.device("cpu"),
+    auxiliary_loss_weight: float = 0.3,
 ) -> None:
     """
     Train and validation the model for the given number of epochs.
@@ -109,6 +117,7 @@ def train(
             train_metrics,
             device,
             f"Training epoch {epoch}/{epochs}",
+            auxiliary_loss_weight,
         )
         if train_metrics:
             for metric, value in train_metrics.compute().items():

@@ -512,6 +512,10 @@ Training over 150 epochs with a learning rate of 1e-4, batch size of 128 and aux
 |     woman     |       0.5367       |        0.4915        |      0.3448       |     0.4941      |      0.3625       |     0.2000     |      0.5145       |       0.4173        |      0.2532      |
 |     worm      |       0.6361       |        0.4692        |      0.6429       |     0.6510      |      0.3836       |     0.5400     |      0.6435       |       0.4221        |      0.5870      |
 
+Compared to VGG, GoogLeNet performs slightly worse while taking longer to train. However, it does have the benefit of containing significantly less parameters.
+
+Similar to the results when training on MNIST, the training loss is higher than the validation loss due to the additional auxiliary classifiers. However, it is evident that the model has begun overfitting and further training would have negligible improvements or possibly degrade performance on the test set.
+
 ## References
 
 Research paper: https://arxiv.org/pdf/1409.4842.pdf

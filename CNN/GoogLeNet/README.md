@@ -1,6 +1,6 @@
 # GoogLeNet
 
-Implementation of GoogLeNet/InceptionNet-V1 as described in the paper.
+Implementation of GoogLeNet/Inception-V1 as described in the paper.
 
 ## MNIST
 

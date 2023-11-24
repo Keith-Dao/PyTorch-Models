@@ -94,3 +94,54 @@ class BasicConv2DBlock(nn.Module):
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         """Forward pass."""
         return self.net(x)
+
+
+class InceptionBlock(nn.Module):
+    """
+    Inception block.
+    """
+
+    MAX_POOL = nn.MaxPool2d
+    AVG_POOL = nn.AvgPool2d
+
+    def __init__(
+        self,
+        in_channels: int,
+        _1x1_channels: int,
+        _3x3_reduction: int,
+        _3x3_channels: int,
+        _5x5_reduction: int,
+        _5x5_channels: int,
+        pooling_layer: type[nn.MaxPool2d] | type[nn.AvgPool2d],
+        pool_channels: int | None,
+    ) -> None:
+        super().__init__()
+
+        self._1x1 = BasicConv2DBlock(in_channels, _1x1_channels, kernel_size=1)
+        self._3x3 = nn.Sequential(
+            BasicConv2DBlock(in_channels, _3x3_reduction, kernel_size=1),
+            BasicConv2DBlock(
+                _3x3_reduction, _3x3_channels, kernel_size=3, padding=1
+            ),
+        )
+        self._5x5 = nn.Sequential(
+            BasicConv2DBlock(in_channels, _5x5_reduction, kernel_size=1),
+            BasicConv2DBlock(
+                _5x5_reduction, _5x5_channels, kernel_size=3, padding=1
+            ),
+            BasicConv2DBlock(
+                _5x5_reduction, _5x5_channels, kernel_size=3, padding=1
+            ),
+        )
+        self.pooling = nn.Sequential(
+            pooling_layer(3, stride=1, padding=1),
+            BasicConv2DBlock(in_channels, pool_channels, kernel_size=1)
+            if pool_channels
+            else nn.Identity(),
+        )
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        """Forward pass."""
+        return torch.cat(
+            (self._1x1(x), self._3x3(x), self._5x5(x), self.pooling(x)), 1
+        )

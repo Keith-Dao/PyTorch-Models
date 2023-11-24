@@ -72,3 +72,21 @@ class BatchNorm2D(nn.Module):
             / torch.sqrt(variance[None, :, None, None] + self.eps)
             + self.bias[None, :, None, None]
         )
+
+
+class BasicConv2DBlock(nn.Module):
+    """
+    Basic convolutional block with 2d conv, followed by batch norm then ReLU.
+    """
+
+    def __init__(self, in_channels: int, out_channels: int, **kwargs) -> None:
+        super().__init__()
+        self.net = nn.Sequential(
+            nn.Conv2d(in_channels, out_channels, bias=False, **kwargs),
+            BatchNorm2D(out_channels),
+            nn.ReLU(True),
+        )
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        """Forward pass."""
+        return self.net(x)

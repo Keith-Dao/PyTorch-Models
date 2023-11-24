@@ -114,14 +114,28 @@ class InceptionBlock(nn.Module):
         _5x5_channels: int,
         pooling_layer: type[nn.MaxPool2d] | type[nn.AvgPool2d],
         pool_channels: int | None,
+        final_stride: int = 1,
     ) -> None:
         super().__init__()
 
-        self._1x1 = BasicConv2DBlock(in_channels, _1x1_channels, kernel_size=1)
+        self._1x1 = (
+            BasicConv2DBlock(
+                in_channels,
+                _1x1_channels,
+                kernel_size=1,
+                stride=final_stride,
+            )
+            if _1x1_channels
+            else None
+        )
         self._3x3 = nn.Sequential(
             BasicConv2DBlock(in_channels, _3x3_reduction, kernel_size=1),
             BasicConv2DBlock(
-                _3x3_reduction, _3x3_channels, kernel_size=3, padding=1
+                _3x3_reduction,
+                _3x3_channels,
+                kernel_size=3,
+                stride=final_stride,
+                padding=1,
             ),
         )
         self._5x5 = nn.Sequential(
@@ -130,18 +144,29 @@ class InceptionBlock(nn.Module):
                 _5x5_reduction, _5x5_channels, kernel_size=3, padding=1
             ),
             BasicConv2DBlock(
-                _5x5_reduction, _5x5_channels, kernel_size=3, padding=1
+                _5x5_channels,
+                _5x5_channels,
+                kernel_size=3,
+                stride=final_stride,
+                padding=1,
             ),
         )
         self.pooling = nn.Sequential(
-            pooling_layer(3, stride=1, padding=1),
-            BasicConv2DBlock(in_channels, pool_channels, kernel_size=1)
+            pooling_layer(
+                3,
+                stride=1 if pool_channels else final_stride,
+                padding=1,
+            ),
+            BasicConv2DBlock(
+                in_channels, pool_channels, kernel_size=1, stride=final_stride
+            )
             if pool_channels
             else nn.Identity(),
         )
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         """Forward pass."""
-        return torch.cat(
-            (self._1x1(x), self._3x3(x), self._5x5(x), self.pooling(x)), 1
-        )
+        out = torch.cat((self._3x3(x), self._5x5(x), self.pooling(x)), 1)
+        if self._1x1:
+            out = torch.cat((self._1x1(x), out), 1)
+        return out

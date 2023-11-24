@@ -19,10 +19,14 @@ class BatchNorm2D(nn.Module):
         self.eps = eps
 
         self.momentum = momentum  # Use exponential moving average
-        self.running_mean = torch.empty(in_channels, requires_grad=False)
-        self.register_buffer("running_mean", self.running_mean)
-        self.running_variance = torch.empty(in_channels, requires_grad=False)
-        self.register_buffer("running_variance", self.running_variance)
+        self.register_buffer(
+            "running_mean", torch.empty(in_channels, requires_grad=False)
+        )
+        self.running_mean: torch.Tensor
+        self.register_buffer(
+            "running_variance", torch.empty(in_channels, requires_grad=False)
+        )
+        self.running_variance: torch.Tensor
 
         self.reset_parameters()
 

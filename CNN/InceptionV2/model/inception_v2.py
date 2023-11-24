@@ -170,3 +170,112 @@ class InceptionBlock(nn.Module):
         if self._1x1:
             out = torch.cat((self._1x1(x), out), 1)
         return out
+
+
+class Inception_V2(nn.Module):
+    """
+    Inception-V2 model.
+
+    Expects input of shape (3, 224, 224)
+    """
+
+    def __init__(self, num_classes: int = 1000) -> None:
+        super().__init__()
+
+        self.input = nn.Sequential(  # (3, 224, 224)
+            BasicConv2DBlock(
+                3, 64, kernel_size=7, stride=2, padding=3
+            ),  # (64, 112, 112)
+            nn.MaxPool2d(3, stride=2, padding=1),  # (64, 56, 56)
+            BasicConv2DBlock(
+                64, 192, kernel_size=3, padding=1
+            ),  # (64, 56, 56)
+            nn.MaxPool2d(3, stride=2, padding=1),  # (192, 28, 28)
+        )
+
+        self.inception_3a_to_3c = nn.Sequential(
+            InceptionBlock(
+                192, 64, 64, 64, 64, 96, InceptionBlock.AVG_POOL, 32
+            ),  # (256, 28, 28)
+            InceptionBlock(
+                256, 64, 64, 96, 64, 96, InceptionBlock.AVG_POOL, 64
+            ),  # (320, 28, 28)
+            InceptionBlock(
+                320, 0, 128, 160, 64, 96, InceptionBlock.MAX_POOL, None, 2
+            ),  # (576, 14, 14)
+        )
+
+        self.inception_4a = InceptionBlock(
+            576, 224, 64, 96, 96, 128, InceptionBlock.AVG_POOL, 128
+        )  # (576, 14, 14)
+        self.aux_1 = nn.Sequential(
+            nn.AvgPool2d(5, stride=3),  # (576, 4, 4)
+            BasicConv2DBlock(576, 128, kernel_size=1),  # (128, 4, 4),
+            nn.Flatten(),
+            nn.Linear(2048, 1024),
+            nn.ReLU(True),
+            nn.Dropout(0.7),
+            nn.Linear(1024, num_classes),
+        )
+        self.inception_4b_to_4d = nn.Sequential(
+            InceptionBlock(
+                576, 192, 96, 128, 96, 128, InceptionBlock.AVG_POOL, 128
+            ),  # (576, 14, 14)
+            InceptionBlock(
+                576, 160, 128, 160, 128, 160, InceptionBlock.AVG_POOL, 128
+            ),  # (608, 14, 14)
+            InceptionBlock(
+                608, 96, 128, 192, 160, 192, InceptionBlock.AVG_POOL, 128
+            ),  # (608, 14, 14)
+        )
+        self.aux_2 = nn.Sequential(
+            nn.AvgPool2d(5, stride=3),  # (608, 4, 4)
+            BasicConv2DBlock(608, 128, kernel_size=1),  # (128, 4, 4),
+            nn.ReLU(True),
+            nn.Flatten(),
+            nn.Linear(2048, 1024),
+            nn.ReLU(True),
+            nn.Dropout(0.7),
+            nn.Linear(1024, num_classes),
+        )
+        self.inception_4e = InceptionBlock(
+            608, 0, 128, 192, 192, 256, InceptionBlock.MAX_POOL, None, 2
+        )  # (1056, 7, 7)
+
+        self.inception_5a_to_5b = nn.Sequential(
+            InceptionBlock(
+                1056, 352, 192, 320, 160, 224, InceptionBlock.AVG_POOL, 128
+            ),  # (1024, 7, 7)
+            InceptionBlock(
+                1024, 352, 192, 320, 192, 224, InceptionBlock.MAX_POOL, 128
+            ),  # (1024, 7, 7)
+        )
+
+        self.output = nn.Sequential(
+            nn.AvgPool2d(7),
+            nn.Flatten(),
+            nn.Linear(1024, num_classes),
+        )
+
+    def forward(
+        self, x: torch.Tensor
+    ) -> torch.Tensor | tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
+        """Forward pass."""
+        x = self.input(x)
+
+        x = self.inception_3a_to_3c(x)
+
+        x = self.inception_4a(x)
+        if self.training:
+            aux_1 = self.aux_1(x)
+        x = self.inception_4b_to_4d(x)
+        if self.training:
+            aux_2 = self.aux_2(x)
+        x = self.inception_4e(x)
+
+        x = self.inception_5a_to_5b(x)
+
+        x = self.output(x)
+        if self.training:
+            return x, aux_1, aux_2  # type: ignore
+        return x

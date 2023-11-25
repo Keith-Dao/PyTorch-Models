@@ -231,7 +231,6 @@ class Inception_V2(nn.Module):
         self.aux_2 = nn.Sequential(
             nn.AvgPool2d(5, stride=3),  # (608, 4, 4)
             BasicConv2DBlock(608, 128, kernel_size=1),  # (128, 4, 4),
-            nn.ReLU(True),
             nn.Flatten(),
             nn.Linear(2048, 1024),
             nn.ReLU(True),

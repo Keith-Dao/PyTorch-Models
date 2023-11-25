@@ -279,6 +279,32 @@ Note that there are some inaccuracies in the paper relating to the number of fil
 | Total params excluding auxiliary params | 10,266,250 |
 | Non-trainable params                    | 0          |
 
+### Results
+
+Trained over 5 epochs with a learning rate of 1e-4, batch size of 64, auxiliary loss weighting of 0.3 and weight decay of 0.01.
+
+|                     Loss                      |                       Accuracy                        |
+| :-------------------------------------------: | :---------------------------------------------------: |
+| ![MNIST loss graph](Resources/mnist_loss.png) | ![MNIST accuracy graph](Resources/mnist_accuracy.png) |
+
+|              | Training | Validation | Testing |
+| :----------: | :------: | :--------: | :-----: |
+|     Loss     |  0.0401  |   0.0344   | 0.0259  |
+| Accuracy (%) |  99.25   |   98.93    |  99.27  |
+
+| Class | Training Precision | Validation Precision | Testing Precision | Training Recall | Validation Recall | Testing Recall | Training F1 Score | Validation F1 Score | Testing F1 Score |
+| :---: | :----------------: | :------------------: | :---------------: | :-------------: | :---------------: | :------------: | :---------------: | :-----------------: | :--------------: |
+|   0   |       0.9956       |        0.9950        |      0.9959       |     0.9956      |      0.9955       |     1.0000     |      0.9956       |       0.9953        |      0.9980      |
+|   1   |       0.9930       |        0.9970        |      0.9956       |     0.9933      |      0.9935       |     0.9982     |      0.9931       |       0.9952        |      0.9969      |
+|   2   |       0.9928       |        0.9915        |      0.9961       |     0.9933      |      0.9938       |     0.9981     |      0.9931       |       0.9927        |      0.9971      |
+|   3   |       0.9946       |        0.9886        |      0.9854       |     0.9916      |      0.9934       |     0.9990     |      0.9931       |       0.9910        |      0.9921      |
+|   4   |       0.9911       |        0.9971        |      0.9979       |     0.9918      |      0.9639       |     0.9684     |      0.9915       |       0.9802        |      0.9829      |
+|   5   |       0.9932       |        0.9937        |      0.9955       |     0.9919      |      0.9868       |     0.9843     |      0.9926       |       0.9902        |      0.9899      |
+|   6   |       0.9930       |        0.9927        |      0.9989       |     0.9940      |      0.9943       |     0.9916     |      0.9935       |       0.9935        |      0.9953      |
+|   7   |       0.9900       |        0.9768        |      0.9932       |     0.9932      |      0.9914       |     0.9942     |      0.9916       |       0.9841        |      0.9937      |
+|   8   |       0.9931       |        0.9972        |      0.9990       |     0.9924      |      0.9900       |     0.9949     |      0.9927       |       0.9936        |      0.9969      |
+|   9   |       0.9890       |        0.9644        |      0.9710       |     0.9882      |      0.9893       |     0.9960     |      0.9886       |       0.9767        |      0.9834      |
+
 ## References
 
 Research paper: https://arxiv.org/pdf/1412.6980.pdf

@@ -698,6 +698,8 @@ Training over 75 epochs with a learning rate of 1e-4, batch size of 64, auxiliar
 |     woman     |       0.7378       |        0.6071        |      0.5254       |     0.7191      |      0.3542       |     0.3100     |      0.7283       |       0.4474        |      0.3899      |
 |     worm      |       0.8310       |        0.5772        |      0.7841       |     0.8357      |      0.5035       |     0.6900     |      0.8333       |       0.5379        |      0.7340      |
 
+When comparing to GoogLeNet, Inception-V2 significantly outperforms GoogLeNet on all datasets while training with less epochs, 66.92% as opposed to 53.44% test accuracy and 75 vs 150 epochs. However, the graphs indicates that validation metrics had stopped improving around 30-40 epochs. So, it can be presumed that halting training around that point may have led to a similar test performance. Thus, the total training time for Inception-V2 could be reduced further while maintaining equal or better test performance than that of GoogLeNet.
+
 ## References
 
 Research paper: https://arxiv.org/pdf/1412.6980.pdf

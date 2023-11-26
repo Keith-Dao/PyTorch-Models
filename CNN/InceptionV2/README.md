@@ -305,6 +305,8 @@ Trained over 5 epochs with a learning rate of 1e-4, batch size of 64, auxiliary 
 |   8   |       0.9931       |        0.9972        |      0.9990       |     0.9924      |      0.9900       |     0.9949     |      0.9927       |       0.9936        |      0.9969      |
 |   9   |       0.9890       |        0.9644        |      0.9710       |     0.9882      |      0.9893       |     0.9960     |      0.9886       |       0.9767        |      0.9834      |
 
+Inception-V2 is able to perform slightly better than GoogLeNet, while requiring less epochs to converge (5 as opposed to 20). It can also be seen from the graphs that the model is beginning to overfit quite quickly and weight decay was necessary to achieve the test performance.
+
 ## References
 
 Research paper: https://arxiv.org/pdf/1412.6980.pdf

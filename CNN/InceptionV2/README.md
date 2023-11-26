@@ -115,7 +115,7 @@ Note that there are some inaccuracies in the paper relating to the number of fil
 |  2D batch norm   |  [-1, 128, 4, 4]   |    256    |
 |       ReLU       |  [-1, 128, 4, 4]   |     0     |
 |     Flatten      |     [-1, 2048]     |     0     |
-|    Linear-130    |     [-1, 1024]     | 2,098,176 |
+|      Linear      |     [-1, 1024]     | 2,098,176 |
 |       ReLU       |     [-1, 1024]     |     0     |
 |     Dropout      |     [-1, 1024]     |     0     |
 |      Linear      |      [-1, 10]      |  10,250   |

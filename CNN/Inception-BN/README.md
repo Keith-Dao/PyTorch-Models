@@ -1,6 +1,6 @@
-# Inception-V2
+# Inception Batch Norm
 
-Implementation of batch normalization and the Inception-V2 following the descriptions provided in the research paper.
+Implementation of Inception Batch Norm following the descriptions provided in the research paper.
 
 Note that there are some inaccuracies in the paper relating to the number of filters and resulting output shapes for some of the inception blocks. In those cases, the number of filters specified is used and the output shapes are adjusted.
 

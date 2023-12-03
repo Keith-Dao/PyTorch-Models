@@ -1,5 +1,5 @@
 """
-    Inception-V2 model.
+    Inception Batch Norm model.
 """
 import torch
 from torch import nn
@@ -172,9 +172,9 @@ class InceptionBlock(nn.Module):
         return out
 
 
-class Inception_V2(nn.Module):
+class Inception_Batch_Norm(nn.Module):
     """
-    Inception-V2 model.
+    Inception Batch Norm model.
 
     Expects input of shape (3, 224, 224)
     """

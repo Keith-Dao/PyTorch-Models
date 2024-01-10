@@ -4,6 +4,7 @@
 from typing import Callable
 
 import torch
+import torch.utils
 import torchmetrics
 import tqdm.auto
 
@@ -29,7 +30,9 @@ def train_one_epoch(
     for data, targets in tqdm.tqdm(loader, desc=tqdm_description, ncols=100):
         data = data.to(device)
         targets = targets.to(device)
-        y = torch.nn.functional.one_hot(targets, num_classes).float()
+        y = torch.nn.functional.one_hot(  # pylint: disable=E1102
+            targets, num_classes
+        ).float()
 
         # Forward pass
         optimizer.zero_grad()
@@ -73,7 +76,9 @@ def validate_one_epoch(
     for data, targets in tqdm.tqdm(loader, desc=tqdm_description, ncols=100):
         data = data.to(device)
         targets = targets.to(device)
-        y = torch.nn.functional.one_hot(targets, num_classes).float()
+        y = torch.nn.functional.one_hot(  # pylint: disable=E1102
+            targets, num_classes
+        ).float()
 
         # Forward pass
         y_pred = model(data)

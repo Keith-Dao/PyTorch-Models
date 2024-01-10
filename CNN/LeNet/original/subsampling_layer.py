@@ -25,7 +25,7 @@ class SubsamplingLayer(nn.Module):
         """
         Forward pass.
         """
-        pool = nn.functional.avg_pool2d(
+        pool = nn.functional.avg_pool2d(  # pylint: disable=E1102
             x, 2, stride=2, divisor_override=1
         ).permute((0, 2, 3, 1))
         return nn.functional.softmax(

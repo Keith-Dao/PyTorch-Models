@@ -33,7 +33,8 @@ class LeNet5(nn.Module):
         for layer in conv_layers:
             bound = 2.4 / layer.in_channels
             nn.init.uniform_(layer.weight, -bound, bound)
-            nn.init.uniform_(layer.bias, -bound, bound)
+            if layer.bias is not None:
+                nn.init.uniform_(layer.bias, -bound, bound)
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         """

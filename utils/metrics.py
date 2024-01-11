@@ -9,7 +9,9 @@ from matplotlib.ticker import MaxNLocator
 from tabulate import tabulate
 
 
-def plot_metric(histories: dict[str, dict[str, list[float]]], metric: str):
+def plot_metric(
+    histories: dict[str, dict[str, list[float]]], metric: str
+) -> None:
     """
     Plot the metrics.
     """
@@ -33,7 +35,7 @@ def plot_metric(histories: dict[str, dict[str, list[float]]], metric: str):
 
 def pretty_print_metrics(
     metrics: dict[str, list[torch.Tensor]], classes: list[str]
-):
+) -> None:
     """
     Print the metrics in a tabulated format.
     """
@@ -78,7 +80,7 @@ def histories_to_md(
     classes: list[str],
     histories: list[dict[str, list[torch.Tensor]]],
     metrics: list[str],
-):
+) -> str:
     """
     Convert the metric histories into a markdown table.
     """

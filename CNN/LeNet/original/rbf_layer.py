@@ -4,9 +4,9 @@
 import os
 
 import numpy as np
-import torch
-import torch.nn as nn
 import PIL.Image
+import torch
+from torch import nn
 
 
 class RBFLayer(nn.Module):

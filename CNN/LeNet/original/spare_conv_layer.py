@@ -47,7 +47,7 @@ class SparseConvLayer(nn.Module):
 
         for in_channel, out_channels in enumerate(self.mapping):
             output[:, out_channels, :, :] += (
-                nn.functional.conv2d(
+                nn.functional.conv2d(  # pylint: disable=E1102
                     x[:, in_channel, :, :].unsqueeze(1),
                     self.weight[:, in_channel, :, :].unsqueeze(1),
                 )

@@ -172,7 +172,7 @@ class InceptionBlock(nn.Module):
         return out
 
 
-class Inception_Batch_Norm(nn.Module):
+class InceptionBatchNorm(nn.Module):
     """
     Inception Batch Norm model.
 

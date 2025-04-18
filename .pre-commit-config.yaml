@@ -1,0 +1,15 @@
+repos:
+  - repo: local
+    hooks:
+      - id: lint
+        name: Linter
+        entry: ruff check
+        language: python
+        types_or: [python, pyi, jupyter]
+        args:
+          - --fix
+      - id: format
+        name: Formatter
+        entry: ruff format
+        language: python
+        types_or: [python, pyi, jupyter]

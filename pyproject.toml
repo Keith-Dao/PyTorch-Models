@@ -7,6 +7,7 @@ name = "pytorch-models"
 version = "0.0.1"
 readme = "README.md"
 description = "A collection of PyTorch models and utilities for various tasks."
+requires-python = ">=3.13"
 dependencies = [
     "scikit-learn>=1.6.1",
     "seaborn>=0.13.2",

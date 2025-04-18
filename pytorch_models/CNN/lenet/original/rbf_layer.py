@@ -1,6 +1,6 @@
 """The Euclidean Radial Basis Function layer."""
 
-import os
+import pathlib
 
 import numpy as np
 import PIL.Image
@@ -23,7 +23,7 @@ class RBFLayer(nn.Module):
         def load_kernel(i: int):
             image = np.array(
                 PIL.Image.open(
-                    os.path.join(os.path.dirname(__file__), f"RBF_Kernels/{i}_RBF.jpg")
+                    pathlib.Path(__file__).parent / f"RBF_Kernels/{i}_RBF.jpg"
                 ).convert("L")
             )
             return ((image < 127.5) * 2 - 1).flatten()

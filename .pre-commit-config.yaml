@@ -13,9 +13,3 @@ repos:
         entry: ruff format
         language: python
         types_or: [python, pyi, jupyter]
-      - id: nbstripout
-        name: nbstripout
-        description: Strip output from Jupyter notebooks
-        entry: nbstripout
-        language: python
-        types_or: [jupyter]

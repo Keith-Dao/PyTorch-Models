@@ -22,14 +22,30 @@ def train_one_epoch(
     tqdm_description: str = "",
     auxiliary_loss_weight: float = 0.3,
 ) -> torch.Tensor:
-    """One training epoch."""
+    """Trains the model for one epoch.
+
+    Args:
+        model: The model to train.
+        optimizer: The optimizer to use.
+        scheduler: The learning rate scheduler to use.
+        loader: The data loader to use.
+        loss_fn: The loss function to use.
+        num_classes: The number of classes in the dataset.
+        metrics: The metrics to compute.
+        device: The device to use.
+        tqdm_description: Description for the tqdm progress bar.
+        auxiliary_loss_weight: Weight for the auxiliary loss.
+
+    Returns:
+        The average training loss for the epoch.
+    """
     training_loss = torch.tensor([0], dtype=torch.float, device=device)
+    count = 0
     for data, targets in tqdm.tqdm(loader, desc=tqdm_description, ncols=100):
+        count += len(data)
         data = data.to(device)
         targets = targets.to(device)
-        y = torch.nn.functional.one_hot(  # pylint: disable=E1102
-            targets, num_classes
-        ).float()
+        y = torch.nn.functional.one_hot(targets, num_classes).float()
 
         # Forward pass
         optimizer.zero_grad()
@@ -52,7 +68,7 @@ def train_one_epoch(
             metrics.update(y_pred, targets)
     if scheduler:
         scheduler.step()
-    return training_loss.to("cpu") / len(loader.dataset)
+    return training_loss.to("cpu") / count
 
 
 @torch.inference_mode()
@@ -65,15 +81,28 @@ def validate_one_epoch(
     device: torch.device = torch.device("cpu"),
     tqdm_description: str = "",
 ) -> torch.Tensor:
-    """One validation epoch."""
+    """Validates the model for one epoch.
+
+    Args:
+        model: The model to validate.
+        loader: The data loader to use.
+        loss_fn: The loss function to use.
+        num_classes: The number of classes in the dataset.
+        metrics: The metrics to compute.
+        device: The device to use.
+        tqdm_description: Description for the tqdm progress bar.
+
+    Returns:
+        The average validation loss for the epoch.
+    """
     model.eval()
     validation_loss = torch.tensor([0], dtype=torch.float, device=device)
+    count = 0
     for data, targets in tqdm.tqdm(loader, desc=tqdm_description, ncols=100):
+        count += len(data)
         data = data.to(device)
         targets = targets.to(device)
-        y = torch.nn.functional.one_hot(  # pylint: disable=E1102
-            targets, num_classes
-        ).float()
+        y = torch.nn.functional.one_hot(targets, num_classes).float()
 
         # Forward pass
         y_pred = model(data)
@@ -84,7 +113,7 @@ def validate_one_epoch(
         if metrics:
             metrics.update(y_pred, targets)
     model.train()
-    return validation_loss.to("cpu") / len(loader.dataset)
+    return validation_loss.to("cpu") / count
 
 
 def train(
@@ -102,8 +131,25 @@ def train(
     validation_metrics: torchmetrics.MetricCollection | None = None,
     device: torch.device = torch.device("cpu"),
     auxiliary_loss_weight: float = 0.3,
-) -> None:
-    """Train and validation the model for the given number of epochs."""
+):
+    """Trains and validates the model for the given number of epochs.
+
+    Args:
+        model: The model to train.
+        optimizer: The optimizer to use.
+        scheduler: The learning rate scheduler to use.
+        train_loader: The training data loader.
+        train_history: The training history to update.
+        validation_loader: The validation data loader.
+        validation_history: The validation history to update.
+        epochs: The number of epochs to train for.
+        loss_fn: The loss function to use.
+        classes: The list of class names.
+        train_metrics: The metrics to compute during training.
+        validation_metrics: The metrics to compute during validation.
+        device: The device to use.
+        auxiliary_loss_weight: Weight for the auxiliary loss.
+    """
     for epoch in range(1, epochs + 1):
         training_loss = train_one_epoch(
             model,

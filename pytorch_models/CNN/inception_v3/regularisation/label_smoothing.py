@@ -16,13 +16,9 @@ class LabelSmoothing(nn.Module):
         self.loss = loss
         self.epsilon = epsilon
 
-    def forward(
-        self, input: torch.Tensor, target: torch.Tensor
-    ) -> torch.Tensor:
+    def forward(self, input: torch.Tensor, target: torch.Tensor) -> torch.Tensor:
         """Apply label smoothing to loss function."""
         num_classes = input.shape[1]
-        return (1 - self.epsilon) * self.loss(
-            input, target
-        ) + self.epsilon * self.loss(
+        return (1 - self.epsilon) * self.loss(input, target) + self.epsilon * self.loss(
             input, torch.full_like(input, 1 / num_classes)
         )

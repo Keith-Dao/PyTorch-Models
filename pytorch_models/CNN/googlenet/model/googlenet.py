@@ -1,6 +1,7 @@
 """
-    GoogLeNet/Inception-V1 model.
+GoogLeNet/Inception-V1 model.
 """
+
 import torch
 from torch import nn
 
@@ -46,9 +47,7 @@ class InceptionBlock(nn.Module):
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         """Forward pass."""
-        return torch.cat(
-            (self._1x1(x), self._3x3(x), self._5x5(x), self.pooling(x)), 1
-        )
+        return torch.cat((self._1x1(x), self._3x3(x), self._5x5(x), self.pooling(x)), 1)
 
 
 class GoogLeNet(nn.Module):

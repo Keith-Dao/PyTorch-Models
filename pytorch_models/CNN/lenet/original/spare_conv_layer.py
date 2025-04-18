@@ -1,6 +1,7 @@
 """
-    Sparse convolutional layer.
+Sparse convolutional layer.
 """
+
 import torch
 from torch import nn
 

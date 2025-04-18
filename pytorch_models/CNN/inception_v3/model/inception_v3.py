@@ -30,19 +30,13 @@ class _GridReduction(nn.Module):
         super().__init__()
         self._5x5 = nn.Sequential(
             _BasicConvBlock(in_channels, out_channels[0], kernel_size=1),
-            _BasicConvBlock(
-                out_channels[0], out_channels[0], kernel_size=3, padding=1
-            ),
-            _BasicConvBlock(
-                out_channels[0], out_channels[0], kernel_size=3, stride=2
-            ),
+            _BasicConvBlock(out_channels[0], out_channels[0], kernel_size=3, padding=1),
+            _BasicConvBlock(out_channels[0], out_channels[0], kernel_size=3, stride=2),
         )
 
         self._3x3 = nn.Sequential(
             _BasicConvBlock(in_channels, out_channels[1], kernel_size=1),
-            _BasicConvBlock(
-                out_channels[1], out_channels[1], kernel_size=3, stride=2
-            ),
+            _BasicConvBlock(out_channels[1], out_channels[1], kernel_size=3, stride=2),
         )
 
         self._pool = nn.MaxPool2d(3, 2)
@@ -59,19 +53,13 @@ class _InceptionBlockFig5(nn.Module):
         super().__init__()
         self._5x5 = nn.Sequential(
             _BasicConvBlock(in_channels, out_channels[0], kernel_size=1),
-            _BasicConvBlock(
-                out_channels[0], out_channels[0], kernel_size=3, padding=1
-            ),
-            _BasicConvBlock(
-                out_channels[0], out_channels[0], kernel_size=3, padding=1
-            ),
+            _BasicConvBlock(out_channels[0], out_channels[0], kernel_size=3, padding=1),
+            _BasicConvBlock(out_channels[0], out_channels[0], kernel_size=3, padding=1),
         )
 
         self._3x3 = nn.Sequential(
             _BasicConvBlock(in_channels, out_channels[1], kernel_size=1),
-            _BasicConvBlock(
-                out_channels[1], out_channels[1], kernel_size=3, padding=1
-            ),
+            _BasicConvBlock(out_channels[1], out_channels[1], kernel_size=3, padding=1),
         )
 
         self._pool_1x1 = nn.Sequential(
@@ -144,9 +132,7 @@ class _InceptionBlockFig6(nn.Module):
             _BasicConvBlock(in_channels, 192, kernel_size=1),
         )
 
-        self._1x1 = nn.Sequential(
-            _BasicConvBlock(in_channels, 192, kernel_size=1)
-        )
+        self._1x1 = nn.Sequential(_BasicConvBlock(in_channels, 192, kernel_size=1))
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         """Forward pass."""
@@ -237,17 +223,13 @@ class InceptionV3(nn.Module):
         self.head = nn.Sequential(  # (3, 299, 299)
             _BasicConvBlock(3, 32, kernel_size=3, stride=2),  # (32, 149, 149)
             _BasicConvBlock(32, 32, kernel_size=3),  # (32, 147, 147)
-            _BasicConvBlock(
-                32, 64, kernel_size=3, padding=1
-            ),  # (64, 147, 147)
+            _BasicConvBlock(32, 64, kernel_size=3, padding=1),  # (64, 147, 147)
             nn.MaxPool2d(3, 2),  # (64, 73, 73)
             _BasicConvBlock(64, 80, kernel_size=3),  # (80, 71, 71)
             _BasicConvBlock(80, 192, kernel_size=3, stride=2),  # (192, 35, 35)
             *[
                 _InceptionBlockFig5(in_channels, [64, 64, 96, pool_channels])
-                for in_channels, pool_channels in zip(
-                    [192, 256, 288], [32, 64, 64]
-                )
+                for in_channels, pool_channels in zip([192, 256, 288], [32, 64, 64])
             ],  # (288, 35, 35)
             _GridReduction(288, [384, 96]),  # (768, 17, 17)
             *[

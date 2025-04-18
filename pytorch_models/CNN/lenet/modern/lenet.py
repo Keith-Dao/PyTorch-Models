@@ -1,6 +1,7 @@
 """
-    Modern interpretation of the LeNet-5 model.
+Modern interpretation of the LeNet-5 model.
 """
+
 import torch
 from torch import nn
 

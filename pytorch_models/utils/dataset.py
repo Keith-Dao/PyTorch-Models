@@ -1,5 +1,5 @@
 """
-    Dataset utils.
+Dataset utils.
 """
 
 import torch
@@ -12,9 +12,7 @@ def get_loader(
     """
     Create a data loader for the given dataset.
     """
-    return torch.utils.data.DataLoader(
-        dataset, batch_size=batch_size, shuffle=True
-    )
+    return torch.utils.data.DataLoader(dataset, batch_size=batch_size, shuffle=True)
 
 
 def sample_first(

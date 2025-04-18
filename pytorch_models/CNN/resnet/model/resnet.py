@@ -1,6 +1,7 @@
 """
-    ResNet model.
+ResNet model.
 """
+
 import torch
 from torch import nn
 
@@ -61,9 +62,7 @@ class BottleneckResidualBlock(nn.Module):
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         """Forward pass."""
-        return self.relu(
-            self.bottleneck_block(x) + self.residual_connection(x)
-        )
+        return self.relu(self.bottleneck_block(x) + self.residual_connection(x))
 
 
 class ResNet(nn.Module):
@@ -92,9 +91,7 @@ class ResNet(nn.Module):
             )
 
         self.net = nn.Sequential(  # (3, 224, 224)
-            nn.Conv2d(
-                3, 64, 7, stride=2, padding=3, bias=False
-            ),  # (64, 112, 112)
+            nn.Conv2d(3, 64, 7, stride=2, padding=3, bias=False),  # (64, 112, 112)
             nn.BatchNorm2d(64),
             nn.ReLU(True),
             nn.MaxPool2d(3, stride=2, padding=1),  # (64, 56, 56)

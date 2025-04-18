@@ -1,6 +1,7 @@
 """
-    Data augmentations.
+Data augmentations.
 """
+
 import torch
 
 
@@ -25,9 +26,7 @@ class Clip:
     Clips input to the given range.
     """
 
-    def __init__(
-        self, min_: float | None = None, max_: float | None = None
-    ) -> None:
+    def __init__(self, min_: float | None = None, max_: float | None = None) -> None:
         if min_ is not None and max_ is not None and min_ >= max_:
             raise ValueError("min_ must be strictly less than max_.")
         self.min = min_

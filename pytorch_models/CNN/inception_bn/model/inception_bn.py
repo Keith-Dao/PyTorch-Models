@@ -1,6 +1,7 @@
 """
-    Inception Batch Norm model.
+Inception Batch Norm model.
 """
+
 import torch
 from torch import nn
 
@@ -44,9 +45,7 @@ class BatchNorm2D(nn.Module):
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         """Forward pass."""
         if len(x.shape) != 4:
-            raise ValueError(
-                f"Expected input of dimension 4, got {len(x.shape)}."
-            )
+            raise ValueError(f"Expected input of dimension 4, got {len(x.shape)}.")
 
         if x.shape[1] != len(self.weight):
             raise ValueError(
@@ -59,8 +58,7 @@ class BatchNorm2D(nn.Module):
             n = x.numel() / x.size(1)
             with torch.no_grad():
                 self.running_mean = (
-                    self.momentum * mean
-                    + (1 - self.momentum) * self.running_mean
+                    self.momentum * mean + (1 - self.momentum) * self.running_mean
                 )
                 self.running_variance = (
                     self.momentum * variance * n / (n - 1)
@@ -140,9 +138,7 @@ class InceptionBlock(nn.Module):
         )
         self._5x5 = nn.Sequential(
             BasicConv2DBlock(in_channels, _5x5_reduction, kernel_size=1),
-            BasicConv2DBlock(
-                _5x5_reduction, _5x5_channels, kernel_size=3, padding=1
-            ),
+            BasicConv2DBlock(_5x5_reduction, _5x5_channels, kernel_size=3, padding=1),
             BasicConv2DBlock(
                 _5x5_channels,
                 _5x5_channels,
@@ -187,9 +183,7 @@ class InceptionBatchNorm(nn.Module):
                 3, 64, kernel_size=7, stride=2, padding=3
             ),  # (64, 112, 112)
             nn.MaxPool2d(3, stride=2, padding=1),  # (64, 56, 56)
-            BasicConv2DBlock(
-                64, 192, kernel_size=3, padding=1
-            ),  # (64, 56, 56)
+            BasicConv2DBlock(64, 192, kernel_size=3, padding=1),  # (64, 56, 56)
             nn.MaxPool2d(3, stride=2, padding=1),  # (192, 28, 28)
         )
 

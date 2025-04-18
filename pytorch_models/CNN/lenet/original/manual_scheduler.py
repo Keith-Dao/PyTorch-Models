@@ -1,5 +1,5 @@
 """
-    A manual scheduler.
+A manual scheduler.
 """
 
 

@@ -1,6 +1,7 @@
 """
-    The Euclidean Radial Basis Function layer.
+The Euclidean Radial Basis Function layer.
 """
+
 import os
 
 import numpy as np
@@ -22,9 +23,7 @@ class RBFLayer(nn.Module):
         def load_kernel(i: int):
             image = np.array(
                 PIL.Image.open(
-                    os.path.join(
-                        os.path.dirname(__file__), f"RBF_Kernels/{i}_RBF.jpg"
-                    )
+                    os.path.join(os.path.dirname(__file__), f"RBF_Kernels/{i}_RBF.jpg")
                 ).convert("L")
             )
             return ((image < 127.5) * 2 - 1).flatten()
@@ -37,9 +36,7 @@ class RBFLayer(nn.Module):
         Forward pass.
         """
         shape = x.size(0), self.out_channels, self.in_channels
-        kernels: torch.Tensor = (
-            self.kernels
-        )  # pyright: ignore [reportGeneralTypeIssues]
+        kernels: torch.Tensor = self.kernels  # pyright: ignore [reportGeneralTypeIssues]
         return (
             (x.unsqueeze(1).expand(shape) - kernels.unsqueeze(0).expand(shape))
             .pow(2)

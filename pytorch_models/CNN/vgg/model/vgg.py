@@ -1,6 +1,7 @@
 """
-    VGG-16 Model
+VGG-16 Model
 """
+
 import torch
 from torch import nn
 

@@ -1,17 +1,16 @@
 """
-    Metric utils.
+Metric utils.
 """
+
 from typing import Any
 
 import matplotlib.pyplot as plt
-import torch
 from matplotlib.ticker import MaxNLocator
 from tabulate import tabulate
+import torch
 
 
-def plot_metric(
-    histories: dict[str, dict[str, list[float]]], metric: str
-) -> None:
+def plot_metric(histories: dict[str, dict[str, list[float]]], metric: str) -> None:
     """
     Plot the metrics.
     """
@@ -95,6 +94,4 @@ def histories_to_md(
         )
     )
     delimiter = "|"
-    return "\n".join(
-        f"{delimiter}{delimiter.join(row)}{delimiter}" for row in table
-    )
+    return "\n".join(f"{delimiter}{delimiter.join(row)}{delimiter}" for row in table)

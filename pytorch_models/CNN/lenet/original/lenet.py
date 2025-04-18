@@ -1,6 +1,7 @@
 """
-    The LeNet-5 model.
+The LeNet-5 model.
 """
+
 import math
 
 import torch

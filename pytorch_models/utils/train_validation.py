@@ -1,6 +1,7 @@
 """
-    Training and validation steps.
+Training and validation steps.
 """
+
 from typing import Callable
 
 import torch

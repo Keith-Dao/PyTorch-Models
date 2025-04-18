@@ -1,6 +1,7 @@
 """
-    The subsampling layer used in LeNet-5.
+The subsampling layer used in LeNet-5.
 """
+
 import torch
 from torch import nn
 
@@ -28,6 +29,6 @@ class SubsamplingLayer(nn.Module):
         pool = nn.functional.avg_pool2d(  # pylint: disable=E1102
             x, 2, stride=2, divisor_override=1
         ).permute((0, 2, 3, 1))
-        return nn.functional.softmax(
-            pool * self.weight + self.bias, dim=2
-        ).permute((0, 3, 1, 2))
+        return nn.functional.softmax(pool * self.weight + self.bias, dim=2).permute(
+            (0, 3, 1, 2)
+        )

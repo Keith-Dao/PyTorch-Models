@@ -19,9 +19,14 @@ dependencies = [
 ]
 
 [dependency-groups]
-dev = ["ipykernel>=6.29.5", "jupyter>=1.1.1"]
+dev = [
+    "ipykernel>=6.29.5",
+    "jupyter>=1.1.1",
+    "nbstripout>=0.8.1",
+    "pre-commit>=4.2.0",
+]
 
 [tool.ruff.lint]
-extend-select = ["W", "I", "N", "C4", "PT", "RET", "SLF", "SIM", "TC"]
+extend-select = ["W", "I", "N", "C4", "PT", "RET", "SLF", "SIM", "TC", "RUF200"]
 ignore = ["E741"]
 isort.force-sort-within-sections = true

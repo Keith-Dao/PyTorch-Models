@@ -1,6 +1,7 @@
 """
-    The AlexNet model.
+The AlexNet model.
 """
+
 import torch
 from torch import nn
 

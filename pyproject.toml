@@ -25,9 +25,28 @@ dev = [
     "jupyter>=1.1.1",
     "nbstripout>=0.8.1",
     "pre-commit>=4.2.0",
+    "ruff>=0.11.6",
 ]
 
 [tool.ruff.lint]
-extend-select = ["W", "I", "N", "C4", "PT", "RET", "SLF", "SIM", "TC", "RUF200"]
+extend-select = [
+    "W",
+    "I",
+    "N",
+    "C4",
+    "PT",
+    "RET",
+    "SLF",
+    "SIM",
+    "TC",
+    "RUF200",
+    "W505",
+]
 ignore = ["E741"]
 isort.force-sort-within-sections = true
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.lint.pycodestyle]
+max-doc-length = 80

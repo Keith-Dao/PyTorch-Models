@@ -3,8 +3,25 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "pytorch_models"
+name = "pytorch-models"
 version = "0.0.1"
+readme = "README.md"
+description = "A collection of PyTorch models and utilities for various tasks."
+dependencies = [
+    "scikit-learn>=1.6.1",
+    "seaborn>=0.13.2",
+    "tabulate>=0.9.0",
+    "torch>=2.6.0",
+    "torchmetrics>=1.7.1",
+    "torchsummary>=1.5.1",
+    "torchvision>=0.21.0",
+    "tqdm>=4.67.1",
+]
 
-[tool.hatch.build.targets.wheel]
-packages = ["utils"]
+[dependency-groups]
+dev = ["ipykernel>=6.29.5", "jupyter>=1.1.1"]
+
+[tool.ruff.lint]
+extend-select = ["W", "I", "N", "C4", "PT", "RET", "SLF", "SIM", "TC"]
+ignore = ["E741"]
+isort.force-sort-within-sections = true

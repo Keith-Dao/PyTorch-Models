@@ -1,6 +1,4 @@
-"""
-Inception Batch Norm model.
-"""
+"""Inception Batch Norm model."""
 
 import torch
 from torch import nn
@@ -8,7 +6,8 @@ from torch import nn
 
 class BatchNorm2D(nn.Module):
     """
-    Batch normalization layer for 2D inputs with an additional channel dimension.
+    Batch normalization layer for 2D inputs with an additional channel
+    dimension.
     """
 
     def __init__(
@@ -78,7 +77,8 @@ class BatchNorm2D(nn.Module):
 
 class BasicConv2DBlock(nn.Module):
     """
-    Basic convolutional block with 2d conv, followed by batch norm then ReLU.
+    Basic convolutional block with 2d conv, followed by batch norm
+    then ReLU.
     """
 
     def __init__(self, in_channels: int, out_channels: int, **kwargs) -> None:
@@ -95,9 +95,7 @@ class BasicConv2DBlock(nn.Module):
 
 
 class InceptionBlock(nn.Module):
-    """
-    Inception block.
-    """
+    """Inception block."""
 
     MAX_POOL = nn.MaxPool2d
     AVG_POOL = nn.AvgPool2d
@@ -169,8 +167,7 @@ class InceptionBlock(nn.Module):
 
 
 class InceptionBatchNorm(nn.Module):
-    """
-    Inception Batch Norm model.
+    """Inception Batch Norm model.
 
     Expects input of shape (3, 224, 224)
     """

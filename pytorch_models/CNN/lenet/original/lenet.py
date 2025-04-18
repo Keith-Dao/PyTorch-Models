@@ -1,6 +1,4 @@
-"""
-The LeNet-5 model.
-"""
+"""The LeNet-5 model."""
 
 import math
 
@@ -14,9 +12,7 @@ from .subsampling_layer import SubsamplingLayer
 
 
 class LeNet5(nn.Module):
-    """
-    Original LeNet-5 model.
-    """
+    """Original LeNet-5 model."""
 
     def __init__(self) -> None:
         super().__init__()
@@ -38,9 +34,7 @@ class LeNet5(nn.Module):
                 nn.init.uniform_(layer.bias, -bound, bound)
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
-        """
-        Forward pass.
-        """
+        """Forward pass."""
         x = self.activation(self.c1(x))
         x = self.activation(self.s2(x))
         x = self.activation(self.c3(x))
@@ -52,9 +46,7 @@ class LeNet5(nn.Module):
 
     @staticmethod
     def loss(logits: torch.Tensor, targets: torch.Tensor) -> torch.Tensor:
-        """
-        The model's loss function.
-        """
+        """The model's loss function."""
         return logits[targets == 1].pow(2).sum() + torch.log(
             math.exp(-0.1) + (-logits[targets == 0]).exp().sum()
         )

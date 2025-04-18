@@ -1,15 +1,11 @@
-"""
-Modern interpretation of the LeNet-5 model.
-"""
+"""Modern interpretation of the LeNet-5 model."""
 
 import torch
 from torch import nn
 
 
 class LeNet5(nn.Module):
-    """
-    Modern interpretation of the LeNet-5 model.
-    """
+    """Modern interpretation of the LeNet-5 model."""
 
     def __init__(self) -> None:
         super().__init__()
@@ -25,9 +21,7 @@ class LeNet5(nn.Module):
     def forward(
         self, x: torch.Tensor, feature_maps: None | list[torch.Tensor] = None
     ) -> torch.Tensor:
-        """
-        Forward pass.
-        """
+        """Forward pass."""
         if feature_maps is not None:
             feature_maps.clear()
 

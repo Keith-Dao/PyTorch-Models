@@ -1,15 +1,11 @@
-"""
-The subsampling layer used in LeNet-5.
-"""
+"""The subsampling layer used in LeNet-5."""
 
 import torch
 from torch import nn
 
 
 class SubsamplingLayer(nn.Module):
-    """
-    The subsampling layer as described in the LeNet-5 paper.
-    """
+    """The subsampling layer as described in the LeNet-5 paper."""
 
     def __init__(self, in_channels: int) -> None:
         super().__init__()
@@ -23,9 +19,7 @@ class SubsamplingLayer(nn.Module):
         nn.init.uniform_(self.bias, -bound, bound)
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
-        """
-        Forward pass.
-        """
+        """Forward pass."""
         pool = nn.functional.avg_pool2d(  # pylint: disable=E1102
             x, 2, stride=2, divisor_override=1
         ).permute((0, 2, 3, 1))

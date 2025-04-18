@@ -1,15 +1,11 @@
-"""
-ResNet model.
-"""
+"""ResNet model."""
 
 import torch
 from torch import nn
 
 
 class BottleneckResidualBlock(nn.Module):
-    """
-    A bottleneck residual block.
-    """
+    """A bottleneck residual block."""
 
     def __init__(
         self, in_channels: int, out_channels: int, downsample: bool = False
@@ -66,9 +62,7 @@ class BottleneckResidualBlock(nn.Module):
 
 
 class ResNet(nn.Module):
-    """
-    ResNet model with 50, 101 or 152 layers.
-    """
+    """ResNet model with 50, 101 or 152 layers."""
 
     _MODEL_CONFIGURATIONS: dict[int, list[int]] = {
         50: [3, 4, 6, 3],
@@ -82,12 +76,7 @@ class ResNet(nn.Module):
         if num_layers not in self._MODEL_CONFIGURATIONS:
             raise ValueError(
                 f"{num_layers} is not a valid configuration. Select from "
-                f"""{
-                    ', '.join(
-                        str(config)
-                        for config in self._MODEL_CONFIGURATIONS
-                    )
-                }"""
+                f"""{", ".join(str(config) for config in self._MODEL_CONFIGURATIONS)}"""
             )
 
         self.net = nn.Sequential(  # (3, 224, 224)

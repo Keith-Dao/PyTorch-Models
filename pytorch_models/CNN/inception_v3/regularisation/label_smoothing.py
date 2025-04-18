@@ -1,6 +1,4 @@
-"""
-Model regularisation via label smoothing.
-"""
+"""Model regularisation via label smoothing."""
 
 import torch
 from torch import nn

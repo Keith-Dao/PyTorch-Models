@@ -1,14 +1,10 @@
-"""
-Data augmentations.
-"""
+"""Data augmentations."""
 
 import torch
 
 
 class AddGaussianNoise:
-    """
-    Randomly adds gaussian noise.
-    """
+    """Randomly adds gaussian noise."""
 
     def __init__(self, mean: float = 0, std: float = 1) -> None:
         self.mean = mean
@@ -22,9 +18,7 @@ class AddGaussianNoise:
 
 
 class Clip:
-    """
-    Clips input to the given range.
-    """
+    """Clips input to the given range."""
 
     def __init__(self, min_: float | None = None, max_: float | None = None) -> None:
         if min_ is not None and max_ is not None and min_ >= max_:

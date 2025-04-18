@@ -1,6 +1,4 @@
-"""
-Metric utils.
-"""
+"""Metric utils."""
 
 from typing import Any
 
@@ -11,9 +9,7 @@ import torch
 
 
 def plot_metric(histories: dict[str, dict[str, list[float]]], metric: str) -> None:
-    """
-    Plot the metrics.
-    """
+    """Plot the metrics."""
     ax = plt.figure().gca()
 
     for name, history in histories.items():
@@ -35,9 +31,7 @@ def plot_metric(histories: dict[str, dict[str, list[float]]], metric: str) -> No
 def pretty_print_metrics(
     metrics: dict[str, list[torch.Tensor]], classes: list[str]
 ) -> None:
-    """
-    Print the metrics in a tabulated format.
-    """
+    """Print the metrics in a tabulated format."""
     single_value_headers, single_value_data = [], []
     multivalue_headers = ["Class"]
     multivalue_data: list[Any] = [classes]
@@ -80,9 +74,7 @@ def histories_to_md(
     histories: list[dict[str, list[torch.Tensor]]],
     metrics: list[str],
 ) -> str:
-    """
-    Convert the metric histories into a markdown table.
-    """
+    """Convert the metric histories into a markdown table."""
     table = list(
         zip(
             classes,

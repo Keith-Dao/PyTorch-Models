@@ -1,6 +1,4 @@
-"""
-Dataset utils.
-"""
+"""Dataset utils."""
 
 import torch
 import torch.utils
@@ -9,9 +7,7 @@ import torch.utils
 def get_loader(
     dataset: torch.utils.data.Dataset, batch_size: int
 ) -> torch.utils.data.DataLoader:
-    """
-    Create a data loader for the given dataset.
-    """
+    """Create a data loader for the given dataset."""
     return torch.utils.data.DataLoader(dataset, batch_size=batch_size, shuffle=True)
 
 

@@ -1,15 +1,11 @@
-"""
-VGG-16 Model
-"""
+"""VGG-16 Model"""
 
 import torch
 from torch import nn
 
 
 class VGG(nn.Module):
-    """
-    VGG-16 model.
-    """
+    """VGG-16 model."""
 
     def __init__(self, num_classes: int = 1000) -> None:
         super().__init__()
@@ -57,7 +53,5 @@ class VGG(nn.Module):
         )
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
-        """
-        Forward pass.
-        """
+        """Forward pass."""
         return self.net(x)

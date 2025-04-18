@@ -1,13 +1,14 @@
-"""
-Inception-V3 model.
-"""
+"""Inception-V3 model."""
 
 import torch
 from torch import nn
 
 
 class _BasicConvBlock(nn.Module):
-    """Convolution block consisting of 2D convolution, followed by batch norm then ReLU."""
+    """
+    Convolution block consisting of 2D convolution, followed by batch norm
+    then ReLU.
+    """
 
     def __init__(self, in_channels: int, out_channels: int, **kwargs) -> None:
         super().__init__()
@@ -212,8 +213,7 @@ class _InceptionBlockFig7(nn.Module):
 
 
 class InceptionV3(nn.Module):
-    """
-    Inception V3 model.
+    """Inception V3 model.
 
     Expects input of shape (3, 299, 299)
     """

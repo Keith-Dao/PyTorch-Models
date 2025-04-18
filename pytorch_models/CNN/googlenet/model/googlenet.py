@@ -1,15 +1,11 @@
-"""
-GoogLeNet/Inception-V1 model.
-"""
+"""GoogLeNet/Inception-V1 model."""
 
 import torch
 from torch import nn
 
 
 class InceptionBlock(nn.Module):
-    """
-    Inception block.
-    """
+    """Inception block."""
 
     def __init__(
         self,
@@ -51,8 +47,7 @@ class InceptionBlock(nn.Module):
 
 
 class GoogLeNet(nn.Module):
-    """
-    GoogLeNet/Inception-V1 model.
+    """GoogLeNet/Inception-V1 model.
 
     Expects input of shape (3, 224, 224).
     """

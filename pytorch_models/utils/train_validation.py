@@ -1,6 +1,4 @@
-"""
-Training and validation steps.
-"""
+"""Training and validation steps."""
 
 from typing import Callable
 
@@ -24,9 +22,7 @@ def train_one_epoch(
     tqdm_description: str = "",
     auxiliary_loss_weight: float = 0.3,
 ) -> torch.Tensor:
-    """
-    One training epoch.
-    """
+    """One training epoch."""
     training_loss = torch.tensor([0], dtype=torch.float, device=device)
     for data, targets in tqdm.tqdm(loader, desc=tqdm_description, ncols=100):
         data = data.to(device)
@@ -69,9 +65,7 @@ def validate_one_epoch(
     device: torch.device = torch.device("cpu"),
     tqdm_description: str = "",
 ) -> torch.Tensor:
-    """
-    One validation epoch.
-    """
+    """One validation epoch."""
     model.eval()
     validation_loss = torch.tensor([0], dtype=torch.float, device=device)
     for data, targets in tqdm.tqdm(loader, desc=tqdm_description, ncols=100):
@@ -109,9 +103,7 @@ def train(
     device: torch.device = torch.device("cpu"),
     auxiliary_loss_weight: float = 0.3,
 ) -> None:
-    """
-    Train and validation the model for the given number of epochs.
-    """
+    """Train and validation the model for the given number of epochs."""
     for epoch in range(1, epochs + 1):
         training_loss = train_one_epoch(
             model,

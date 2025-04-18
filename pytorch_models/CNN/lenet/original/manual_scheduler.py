@@ -1,28 +1,24 @@
-"""
-A manual scheduler.
-"""
+"""A manual scheduler."""
 
 
 class ManualLRScheduler:
-    """
-    Scheduler to used along with the torch.optim.lr_scheduler.LambdaLR to
-    change the learning rate to exact values after a certain number of epochs.
-    """
-
     learning_rates: list[float]
     counts: list[int]
     _i: int
     _count: int
 
     def __init__(self, learning_rates: list[float], counts: list[int]) -> None:
-        """
+        """Scheduler to used along with the torch.optim.lr_scheduler.LambdaLR to
+        change the learning rate to exact values after a certain number of
+        epochs.
+
         Args:
             - learning_rates - The learning rate at each stage.
             - counts - The number of epochs before updating to the next stage
         """
-        assert (
-            len(learning_rates) == len(counts) + 1
-        ), "There should always be one more learning rate than count."
+        assert len(learning_rates) == len(counts) + 1, (
+            "There should always be one more learning rate than count."
+        )
         self.learning_rates = learning_rates
         self.counts = counts
         self._i = 0

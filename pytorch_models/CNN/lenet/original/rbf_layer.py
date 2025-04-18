@@ -1,6 +1,4 @@
-"""
-The Euclidean Radial Basis Function layer.
-"""
+"""The Euclidean Radial Basis Function layer."""
 
 import os
 
@@ -11,9 +9,7 @@ from torch import nn
 
 
 class RBFLayer(nn.Module):
-    """
-    The Euclidean Radial Basis Function (RBF) layer for digits.
-    """
+    """The Euclidean Radial Basis Function (RBF) layer for digits."""
 
     def __init__(self, in_channels: int, out_channels: int):
         super().__init__()
@@ -32,9 +28,7 @@ class RBFLayer(nn.Module):
         self.register_buffer("kernels", kernels, persistent=False)
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
-        """
-        Forward pass.
-        """
+        """Forward pass."""
         shape = x.size(0), self.out_channels, self.in_channels
         kernels: torch.Tensor = self.kernels  # pyright: ignore [reportGeneralTypeIssues]
         return (

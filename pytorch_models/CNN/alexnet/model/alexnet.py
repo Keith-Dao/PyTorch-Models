@@ -1,15 +1,11 @@
-"""
-The AlexNet model.
-"""
+"""The AlexNet model."""
 
 import torch
 from torch import nn
 
 
 class AlexNet(nn.Module):
-    """
-    AlexNet model.
-    """
+    """AlexNet model."""
 
     def __init__(self, num_classes: int = 1000) -> None:
         super().__init__()
@@ -41,7 +37,5 @@ class AlexNet(nn.Module):
         )
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
-        """
-        Forward pass.
-        """
+        """Forward pass."""
         return self.net(x)

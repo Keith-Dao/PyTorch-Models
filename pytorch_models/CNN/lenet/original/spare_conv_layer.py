@@ -1,15 +1,11 @@
-"""
-Sparse convolutional layer.
-"""
+"""Sparse convolutional layer."""
 
 import torch
 from torch import nn
 
 
 class SparseConvLayer(nn.Module):
-    """
-    The sparse convolutional layer (C3) described in the LeNet paper.
-    """
+    """The sparse convolutional layer (C3) described in the LeNet paper."""
 
     def __init__(self) -> None:
         super().__init__()
@@ -35,9 +31,7 @@ class SparseConvLayer(nn.Module):
         nn.init.uniform_(self.bias, -bound, bound)
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
-        """
-        Forward pass.
-        """
+        """Forward pass."""
         output = torch.zeros(
             x.size(0),
             self.out_channels,

@@ -7,7 +7,7 @@ from torch import nn
 class AlexNet(nn.Module):
     """AlexNet model."""
 
-    def __init__(self, num_classes: int = 1000) -> None:
+    def __init__(self, num_classes: int = 1000):
         super().__init__()
         self.net = nn.Sequential(  # (3, 227, 227)
             nn.Conv2d(3, 96, (11, 11), 4),  # (96, 55, 55)

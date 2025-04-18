@@ -10,7 +10,7 @@ class _BasicConvBlock(nn.Module):
     then ReLU.
     """
 
-    def __init__(self, in_channels: int, out_channels: int, **kwargs) -> None:
+    def __init__(self, in_channels: int, out_channels: int, **kwargs):
         super().__init__()
 
         self.net = nn.Sequential(
@@ -27,7 +27,7 @@ class _BasicConvBlock(nn.Module):
 class _GridReduction(nn.Module):
     """Grid reduction block."""
 
-    def __init__(self, in_channels: int, out_channels: list[int]) -> None:
+    def __init__(self, in_channels: int, out_channels: list[int]):
         super().__init__()
         self._5x5 = nn.Sequential(
             _BasicConvBlock(in_channels, out_channels[0], kernel_size=1),
@@ -50,7 +50,7 @@ class _GridReduction(nn.Module):
 class _InceptionBlockFig5(nn.Module):
     """Inception block as described in Figure 5 of the paper."""
 
-    def __init__(self, in_channels: int, out_channels: list[int]) -> None:
+    def __init__(self, in_channels: int, out_channels: list[int]):
         super().__init__()
         self._5x5 = nn.Sequential(
             _BasicConvBlock(in_channels, out_channels[0], kernel_size=1),
@@ -82,7 +82,7 @@ class _InceptionBlockFig5(nn.Module):
 class _InceptionBlockFig6(nn.Module):
     """Inception block as described in Figure 6 of the paper."""
 
-    def __init__(self, in_channels: int, channel_size: int) -> None:
+    def __init__(self, in_channels: int, channel_size: int):
         super().__init__()
         self._5x5 = nn.Sequential(
             _BasicConvBlock(in_channels, channel_size, kernel_size=1),
@@ -145,7 +145,7 @@ class _InceptionBlockFig6(nn.Module):
 class _InceptionBlockFig7(nn.Module):
     """Inception block as described in Figure 7 of the paper."""
 
-    def __init__(self, in_channels: int, out_channels: list[int]) -> None:
+    def __init__(self, in_channels: int, out_channels: list[int]):
         super().__init__()
         self._5x5_head = nn.Sequential(
             _BasicConvBlock(in_channels, out_channels[0], kernel_size=1),
@@ -218,7 +218,7 @@ class InceptionV3(nn.Module):
     Expects input of shape (3, 299, 299)
     """
 
-    def __init__(self, num_classes: int = 1000) -> None:
+    def __init__(self, num_classes: int = 1000):
         super().__init__()
         self.head = nn.Sequential(  # (3, 299, 299)
             _BasicConvBlock(3, 32, kernel_size=3, stride=2),  # (32, 149, 149)

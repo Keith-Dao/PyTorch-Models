@@ -10,9 +10,7 @@ class BatchNorm2D(nn.Module):
     dimension.
     """
 
-    def __init__(
-        self, in_channels: int, eps: float = 1e-5, momentum: float = 0.1
-    ) -> None:
+    def __init__(self, in_channels: int, eps: float = 1e-5, momentum: float = 0.1):
         super().__init__()
         self.weight = nn.Parameter(torch.empty(in_channels))
         self.bias = nn.Parameter(torch.empty(in_channels))
@@ -30,12 +28,12 @@ class BatchNorm2D(nn.Module):
 
         self.reset_parameters()
 
-    def reset_tracked_stats(self) -> None:
+    def reset_tracked_stats(self):
         """Resets tracked stats."""
         self.running_mean.zero_()
         self.running_variance.fill_(1)
 
-    def reset_parameters(self) -> None:
+    def reset_parameters(self):
         """Resets layer parameters."""
         self.reset_tracked_stats()
         nn.init.ones_(self.weight)
@@ -81,7 +79,7 @@ class BasicConv2DBlock(nn.Module):
     then ReLU.
     """
 
-    def __init__(self, in_channels: int, out_channels: int, **kwargs) -> None:
+    def __init__(self, in_channels: int, out_channels: int, **kwargs):
         super().__init__()
         self.net = nn.Sequential(
             nn.Conv2d(in_channels, out_channels, bias=False, **kwargs),
@@ -111,7 +109,7 @@ class InceptionBlock(nn.Module):
         pooling_layer: type[nn.MaxPool2d] | type[nn.AvgPool2d],
         pool_channels: int | None,
         final_stride: int = 1,
-    ) -> None:
+    ):
         super().__init__()
 
         self._1x1 = (
@@ -172,7 +170,7 @@ class InceptionBatchNorm(nn.Module):
     Expects input of shape (3, 224, 224)
     """
 
-    def __init__(self, num_classes: int = 1000) -> None:
+    def __init__(self, num_classes: int = 1000):
         super().__init__()
 
         self.input = nn.Sequential(  # (3, 224, 224)

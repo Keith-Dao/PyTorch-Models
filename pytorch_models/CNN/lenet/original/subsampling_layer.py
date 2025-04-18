@@ -7,7 +7,7 @@ from torch import nn
 class SubsamplingLayer(nn.Module):
     """The subsampling layer as described in the LeNet-5 paper."""
 
-    def __init__(self, in_channels: int) -> None:
+    def __init__(self, in_channels: int):
         super().__init__()
         self.in_channels: int = in_channels
         self.weight = nn.Parameter(torch.Tensor(in_channels))

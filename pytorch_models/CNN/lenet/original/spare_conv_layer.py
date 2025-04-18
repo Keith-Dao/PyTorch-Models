@@ -7,7 +7,7 @@ from torch import nn
 class SparseConvLayer(nn.Module):
     """The sparse convolutional layer (C3) described in the LeNet paper."""
 
-    def __init__(self) -> None:
+    def __init__(self):
         super().__init__()
         self.kernel_size = 5
         self.out_channels = 16

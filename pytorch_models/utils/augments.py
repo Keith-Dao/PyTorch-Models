@@ -4,9 +4,16 @@ import torch
 
 
 class AddGaussianNoise:
-    """Randomly adds gaussian noise."""
+    mean: float
+    std: float
 
-    def __init__(self, mean: float = 0, std: float = 1) -> None:
+    def __init__(self, mean: float = 0, std: float = 1):
+        """Augment that randomly adds gaussian noise.
+
+        Args:
+            mean: Mean of the gaussian noise.
+            std: Standard deviation of the gaussian noise.
+        """
         self.mean = mean
         self.std = std
 
@@ -18,9 +25,18 @@ class AddGaussianNoise:
 
 
 class Clip:
-    """Clips input to the given range."""
+    min_: float | None
+    max_: float | None
 
-    def __init__(self, min_: float | None = None, max_: float | None = None) -> None:
+    def __init__(self, min_: float | None = None, max_: float | None = None):
+        """Augment that clips the input to the given range.
+
+        Args:
+            min_: Minimum value to clip to. If None, no minimum clipping is
+                applied.
+            max_: Maximum value to clip to. If None, no maximum clipping is
+                applied.
+        """
         if min_ is not None and max_ is not None and min_ >= max_:
             raise ValueError("min_ must be strictly less than max_.")
         self.min = min_

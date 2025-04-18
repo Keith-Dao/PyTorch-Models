@@ -14,7 +14,7 @@ from .subsampling_layer import SubsamplingLayer
 class LeNet5(nn.Module):
     """Original LeNet-5 model."""
 
-    def __init__(self) -> None:
+    def __init__(self):
         super().__init__()
         self.activation = RescaledTanh(1.7159, 2 / 3)
         self.c1 = nn.Conv2d(1, 6, (5, 5))

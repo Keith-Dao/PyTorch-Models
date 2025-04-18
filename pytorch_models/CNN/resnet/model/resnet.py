@@ -7,9 +7,7 @@ from torch import nn
 class BottleneckResidualBlock(nn.Module):
     """A bottleneck residual block."""
 
-    def __init__(
-        self, in_channels: int, out_channels: int, downsample: bool = False
-    ) -> None:
+    def __init__(self, in_channels: int, out_channels: int, downsample: bool = False):
         super().__init__()
         self.relu = nn.ReLU(True)
 
@@ -70,7 +68,7 @@ class ResNet(nn.Module):
         152: [3, 8, 36, 3],
     }
 
-    def __init__(self, num_classes: int = 1000, num_layers: int = 50) -> None:
+    def __init__(self, num_classes: int = 1000, num_layers: int = 50):
         super().__init__()
 
         if num_layers not in self._MODEL_CONFIGURATIONS:

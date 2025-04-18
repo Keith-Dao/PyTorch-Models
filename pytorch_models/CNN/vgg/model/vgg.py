@@ -7,7 +7,7 @@ from torch import nn
 class VGG(nn.Module):
     """VGG-16 model."""
 
-    def __init__(self, num_classes: int = 1000) -> None:
+    def __init__(self, num_classes: int = 1000):
         super().__init__()
         self.net = nn.Sequential(  # (3, 224, 224)
             nn.Conv2d(3, 64, 3, padding=1),  # (64, 224, 224)

@@ -7,7 +7,7 @@ from torch import nn
 class LabelSmoothing(nn.Module):
     """Label smoothing."""
 
-    def __init__(self, loss: nn.Module, epsilon: float) -> None:
+    def __init__(self, loss: nn.Module, epsilon: float):
         super().__init__()
         if not 0 <= epsilon < 1:
             raise ValueError(f"epsilon must be in [0, 1), got {epsilon}")

@@ -7,7 +7,7 @@ class ManualLRScheduler:
     _i: int
     _count: int
 
-    def __init__(self, learning_rates: list[float], counts: list[int]) -> None:
+    def __init__(self, learning_rates: list[float], counts: list[int]):
         """Scheduler to used along with the torch.optim.lr_scheduler.LambdaLR to
         change the learning rate to exact values after a certain number of
         epochs.
